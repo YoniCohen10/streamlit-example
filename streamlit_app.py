@@ -157,6 +157,12 @@ if ModelType == 'Classification (Default)' and label_size > threshold:
         f"""
             💡 Note - You are trying to make a classification task with more then {threshold}, 
             currently your target label has {label_size} unique values, 
-            currently supports only binary classification tasks
+            currently supports only binary classification tasks.
+            """
+    )
+if ModelType == 'Classification (Default)' and label_size == 2:
+    st.success(
+        f"""
+            ✅ Your label column has exactly 2 values.
             """
     )
