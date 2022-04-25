@@ -10,6 +10,7 @@ from st_aggrid.shared import JsCode
 
 from functionforDownloadButtons import download_button
 
+
 ###################################
 
 
@@ -25,6 +26,7 @@ def _max_width_():
     """,
         unsafe_allow_html=True,
     )
+
 
 st.set_page_config(page_icon="🧠", page_title="DSandbox")
 
@@ -64,7 +66,6 @@ st.title("DSandbox")
 c29, c30, c31 = st.columns([1, 6, 1])
 
 with c30:
-
     uploaded_file = st.file_uploader(
         "",
         key="1",
@@ -122,7 +123,6 @@ st.text("")
 c29, c30, c31 = st.columns([1, 1, 2])
 
 with c29:
-
     CSVButton = download_button(
         df,
         "File.csv",
@@ -138,7 +138,7 @@ with c30:
 
 ModelType = st.radio(
     "Choose your model",
-    ["Regression", "Classification (Default)"],
+    ["Classification (Default)", "Regression"],
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
 
