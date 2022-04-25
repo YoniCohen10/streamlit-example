@@ -145,7 +145,7 @@ ModelType = st.radio(
 target_feature = st.radio(
     "Choose your target columns",
     shows.columns.tolist(),
-    help="You need to choose the type of prediction you want to make about your target. More to come!",
+    help="You need to choose the column you want the model to predict its value",
 )
 
 print(ModelType)
@@ -163,6 +163,24 @@ if ModelType == 'Classification (Default)' and label_size > threshold:
 if ModelType == 'Classification (Default)' and label_size == 2:
     st.success(
         f"""
-            ✅ Your label column has exactly 2 values.
+            ✅  Your label column has exactly 2 values.
             """
     )
+random_or_date = st.radio(
+    "Choose your split strategy",
+    ['Random', 'By date'],
+    help="You need to choose your split strategy, i.e. - the way you want to split your data to train and test sets.",
+)
+
+if random_or_date == 'Random':
+    pass
+
+else:
+    date_feature = st.radio(
+        "Choose your date columns",
+        shows.columns.tolist(),
+        help="You need to choose the column that represents the date of the sample",
+    )
+    cols = st.columns(2)
+    date = cols[0].date_input("Bug date occurrence:")
+    bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
