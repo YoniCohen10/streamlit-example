@@ -182,12 +182,11 @@ else:
         shows.columns.tolist(),
         help="You need to choose the column that represents the date of the sample",
     )
-    cols = st.columns(2)
+    cols = st.columns(1)
     try:
-        bug_severity = cols[1].slider("Date split:", parser.parse(min(shows[date_feature]))
+        bug_severity = cols[0].slider("Date split:", parser.parse(min(shows[date_feature]))
                                       , parser.parse(max(shows[date_feature])))
     except:
-        date = cols[0].date_input("Bug date occurrence:", value=bug_severity)
         st.success(
             f"""
                     ❌  The date format is unknown!
