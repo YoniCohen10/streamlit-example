@@ -149,7 +149,7 @@ target_feature = st.radio(
     help="You need to choose the column you want the model to predict its value",
 )
 
-print(ModelType)
+legit = True
 
 threshold = 2
 label_size = len(shows[target_feature].value_counts())
@@ -161,7 +161,9 @@ if ModelType == 'Classification (Default)' and label_size > threshold:
             currently supports only binary classification tasks.
             """
     )
+    legit = False
 if ModelType == 'Classification (Default)' and label_size == 2:
+    legit = True
     st.success(
         f"""
             ✅  Your label column has exactly 2 values.
@@ -185,11 +187,18 @@ else:
     )
     cols = st.columns(1)
     try:
+        legit = True
         bug_severity = cols[0].slider("Date split:", parser.parse(min(shows[date_feature]))
                                       , parser.parse(max(shows[date_feature])))
     except:
+        legit = False
         st.success(
             f"""
                     ❌  The date format is unknown!
                     """
         )
+
+if st.button('Train model!') and legit:
+    st.write('Why hello there')
+else:
+    st.write('Goodbye')
