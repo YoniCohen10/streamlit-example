@@ -147,15 +147,14 @@ target_feature = st.radio(
     shows.columns.tolist(),
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
-st.subheader(f"{ModelType}")
-st.subheader(f"{str(len(shows[target_feature].value_counts()))}")
 
 print(ModelType)
 
-
-if ModelType == 'Classification (Default)' and len(shows[target_feature].value_counts()) > 2:
+threshold = 2
+label_size = len(shows[target_feature].value_counts())
+if ModelType == 'Classification (Default)' and label_size > threshold:
     st.success(
         f"""
-            💡 More
+            💡 Note - You are trying to make a classification task with more then {threshold}, currently your target label has {label_size}
             """
     )
