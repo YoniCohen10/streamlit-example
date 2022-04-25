@@ -136,14 +136,17 @@ with c30:
         "Download to TXT",
     )
 
-ModelType = st.radio(
-    "Choose your model",
-    ["Classification (Default)", "Regression"],
-    help="You need to choose the type of prediction you want to make about your target. More to come!",
-)
+with c31:
+    ModelType = st.radio(
+        "Choose your model",
+        ["Classification (Default)", "Regression"],
+        help="You need to choose the type of prediction you want to make about your target. More to come!",
+    )
 
-target_feature = st.radio(
-    "Choose your target columns",
-    shows.columns.tolist(),
-    help="You need to choose the type of prediction you want to make about your target. More to come!",
-)
+    target_feature = st.radio(
+        "Choose your target columns",
+        shows.columns.tolist(),
+        help="You need to choose the type of prediction you want to make about your target. More to come!",
+    )
+
+
