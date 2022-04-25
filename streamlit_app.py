@@ -205,12 +205,12 @@ options = st.multiselect(
 st.write('You selected:', options)
 
 
-if st.button('Train model!') and legit:
+if st.button('Train model!') and legit and options.count(target_feature) < 1:
     st.success(f"""
                     🏃  Everything looks great! Start Training!
                     """)
 
-    st.progress()
+    st.write("everything looks good")
 
 else:
     st.write('Goodbye')
