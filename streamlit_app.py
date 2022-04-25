@@ -120,7 +120,7 @@ st.table(df)
 
 st.text("")
 
-c29, c30, c31 = st.columns([1, 1, 1])
+c29, c30, c31 = st.columns([1, 1, 2])
 
 with c29:
     CSVButton = download_button(
@@ -136,17 +136,16 @@ with c30:
         "Download to TXT",
     )
 
-with c31:
-    ModelType = st.radio(
-        "Choose your model",
-        ["Classification (Default)", "Regression"],
-        help="You need to choose the type of prediction you want to make about your target. More to come!",
-    )
+ModelType = st.radio(
+    "Choose your model",
+    ["Classification (Default)", "Regression"],
+    help="You need to choose the type of prediction you want to make about your target. More to come!",
+)
 
-    target_feature = st.radio(
-        "Choose your target columns",
-        shows.columns.tolist(),
-        help="You need to choose the type of prediction you want to make about your target. More to come!",
-    )
+target_feature = st.radio(
+    "Choose your target columns",
+    shows.columns.tolist(),
+    help="You need to choose the type of prediction you want to make about your target. More to come!",
+)
 
 
