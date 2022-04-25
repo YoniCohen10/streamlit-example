@@ -144,6 +144,6 @@ ModelType = st.radio(
 
 target_feature = st.radio(
     "Choose your target columns",
-    [shows.columns.tolist()],
+    shows.columns.tolist(),
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
