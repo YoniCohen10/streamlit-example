@@ -147,6 +147,8 @@ target_feature = st.radio(
     shows.columns.tolist(),
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
+st.subheader(f"{ModelType}")
+st.subheader(f"{str(len(shows[target_feature].value_counts()))}")
 
 print(ModelType)
 
