@@ -243,7 +243,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         num_round = 100
         bst = xgb.train(param, dtrain, num_round)
         pereds = bst.predict(dtest)
-        print("Success")
+        st.success('''Traning complete!''')
     else:
         pass
 
