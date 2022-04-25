@@ -183,7 +183,7 @@ else:
     date_feature = st.radio(
         "Choose your date columns",
         shows.columns.tolist(),
-        help="You need to choose the column that represents the date of the sample",
+        help="You need to choose the column that represents the date of the sample"
     )
     cols = st.columns(1)
     try:
@@ -198,7 +198,16 @@ else:
                     """
         )
 
+st.checkbox("Choose columns you want to drop from the table before training",
+        shows.columns.tolist(),
+        help="99.99% of the times features like data, ids, features with extremely high ratio of NaNs")
+
 if st.button('Train model!') and legit:
-    st.write('Why hello there')
+    st.success(f"""
+                    🏃  Everything looks great! Start Training!
+                    """)
+
+    st.progress()
+
 else:
     st.write('Goodbye')
