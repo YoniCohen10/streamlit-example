@@ -184,5 +184,12 @@ else:
     )
     cols = st.columns(2)
     date = cols[0].date_input("Bug date occurrence:")
-    bug_severity = cols[1].slider("Date split:", parser.parse(min(shows[date_feature]))
-                                  , parser.parse(max(shows[date_feature])))
+    try:
+        bug_severity = cols[1].slider("Date split:", parser.parse(min(shows[date_feature]))
+                                      , parser.parse(max(shows[date_feature])))
+    except:
+        st.success(
+            f"""
+                    ❌  The date format is unknown!
+                    """
+        )
