@@ -135,3 +135,9 @@ with c30:
         "File.csv",
         "Download to TXT",
     )
+
+ModelType = st.radio(
+    "Choose your model",
+    ["Regression", "Classification (Default)"],
+    help="You need to choose the type of prediction you want to make about your target. More to come!",
+)
