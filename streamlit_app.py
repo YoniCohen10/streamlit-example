@@ -212,7 +212,8 @@ st.write('You selected:', col_to_drop)
 
 
 def train_model(data, modelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop):
-    data = data.drop(col_to_drop.remove(date_feature), axis=1)
+    if date_feature in col_to_drop: col_to_drop.remove(date_feature)
+    data = data.drop(col_to_drop, axis=1)
     label = target_feature
     if random_or_date == 'Random':
         data = data.drop(date_feature, axis=1)
