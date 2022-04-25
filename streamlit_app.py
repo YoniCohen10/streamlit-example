@@ -198,9 +198,12 @@ else:
                     """
         )
 
-st.checkbox("Choose columns you want to drop from the table before training",
-        shows.columns.tolist(),
-        help="99.99% of the times features like data, ids, features with extremely high ratio of NaNs")
+options = st.multiselect(
+     '"Choose columns you want to drop from the table before training',
+     shows.columns.tolist(),help="99.99% of the times features like data, ids, features with extremely high ratio of NaNs")
+
+st.write('You selected:', options)
+
 
 if st.button('Train model!') and legit:
     st.success(f"""
