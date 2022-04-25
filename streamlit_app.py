@@ -155,6 +155,8 @@ label_size = len(shows[target_feature].value_counts())
 if ModelType == 'Classification (Default)' and label_size > threshold:
     st.success(
         f"""
-            💡 Note - You are trying to make a classification task with more then {threshold}, currently your target label has {label_size}
+            💡 Note - You are trying to make a classification task with more then {threshold}, 
+            currently your target label has {label_size} unique values, 
+            currently supports only binary classification tasks
             """
     )
