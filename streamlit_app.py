@@ -216,7 +216,8 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     data = data.drop(col_to_drop, axis=1)
     label = target_feature
     if random_or_date == 'Random':
-        data = data.drop(date_feature, axis=1)
+        if date_feature != '':
+            data = data.drop(date_feature, axis=1)
         X_train, X_test, y_train, y_test = train_test_split(
             data.drop(label, axis=1), data[label], test_size=1 - split_prop, random_state=42)
     if random_or_date == 'By date':
