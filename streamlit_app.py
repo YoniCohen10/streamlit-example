@@ -120,7 +120,7 @@ st.table(df)
 
 st.text("")
 
-c29, c30, c31 = st.columns([1, 1, 2])
+c29, c30, c31 = st.columns([1, 1, 1])
 
 with c29:
     CSVButton = download_button(
