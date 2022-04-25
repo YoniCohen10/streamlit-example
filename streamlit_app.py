@@ -183,4 +183,4 @@ else:
     )
     cols = st.columns(2)
     date = cols[0].date_input("Bug date occurrence:")
-    bug_severity = cols[1].slider("Bug severity:", 1, 5, 2)
+    bug_severity = cols[1].slider("Date split:", min(shows[date_feature]), max(shows[date_feature]))
