@@ -153,7 +153,7 @@ st.subheader(f"{str(len(shows[target_feature].value_counts()))}")
 print(ModelType)
 
 
-if ModelType == 'Classification' and len(shows[target_feature].value_counts()) > 2:
+if ModelType == 'Classification (Default)' and len(shows[target_feature].value_counts()) > 2:
     st.success(
         f"""
             💡 More
