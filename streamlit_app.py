@@ -11,8 +11,9 @@ from st_aggrid.shared import JsCode
 from functionforDownloadButtons import download_button
 import dateutil.parser as parser
 
-
 ###################################
+from sklearn.model_selection import train_test_split
+import xgboost as xgb
 
 
 def _max_width_():
@@ -175,6 +176,10 @@ random_or_date = st.radio(
     help="You need to choose your split strategy, i.e. - the way you want to split your data to train and test sets.",
 )
 
+split_prop = ''
+date_feature = ''
+split_date = ''
+
 if random_or_date == 'Random':
     cols = st.columns(1)
     split_prop = cols[0].slider("Train/test size:", 10, 100, 5)
@@ -188,8 +193,8 @@ else:
     cols = st.columns(1)
     try:
         legit = True
-        bug_severity = cols[0].slider("Date split:", parser.parse(min(shows[date_feature]))
-                                      , parser.parse(max(shows[date_feature])))
+        split_date = cols[0].slider("Date split:", parser.parse(min(shows[date_feature]))
+                                    , parser.parse(max(shows[date_feature])))
     except:
         legit = False
         st.success(
@@ -198,19 +203,54 @@ else:
                     """
         )
 
-options = st.multiselect(
-     '"Choose columns you want to drop from the table before training',
-     shows.columns.tolist(),help="99.99% of the times features like data, ids, features with extremely high ratio of NaNs")
+col_to_drop = st.multiselect(
+    '"Choose columns you want to drop from the table before training',
+    shows.columns.tolist(),
+    help="99.99% of the times features like date, ids, features with extremely high ratio of NaNs.")
 
-st.write('You selected:', options)
+st.write('You selected:', col_to_drop)
 
 
-if st.button('Train model!') and legit and options.count(target_feature) < 1:
+def train_model(data, modelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop):
+    data = data.drop(col_to_drop.remove(date_feature), axis=1)
+    label = target_feature
+    if random_or_date == 'Random':
+        data = data.drop(date_feature, axis=1)
+        X_train, X_test, y_train, y_test = train_test_split(
+            data.drop(label, axis=1), data[label], test_size=1 - split_prop, random_state=42)
+    if random_or_date == 'By date':
+        data[date_feature] = data[date_feature].apply(lambda x: parser.parse(x))
+
+        train_set = data[data[date_feature] < parser.parse(split_date)]
+        test_set = data[data[date_feature] >= parser.parse(split_date)]
+
+        train_set = train_set.drop(date_feature, axis=1)
+        test_set = test_set.drop(date_feature, axis=1)
+
+        X_train = train_set.drop(date_feature, axis=1).reset_index(drop=True)
+        y_train = train_set[label].reset_index(drop=True)
+
+        X_test = test_set.drop(date_feature, axis=1).reset_index(drop=True)
+        y_test = test_set[label].reset_index(drop=True)
+
+    if modelType == 'Classification (Default)':
+        dtrain = xgb.DMatrix(X_train, label=y_train)
+        dtest = xgb.DMatrix(X_test)
+        param = {'max_depth': 3, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 3, 'nthread': 48,
+                 'colsample_bytree': 0.8, 'subsample': 0.8}
+        num_round = 100
+        bst = xgb.train(param, dtrain, num_round)
+        pereds = bst.predict(dtest)
+        print("Success")
+    else:
+        pass
+
+
+if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f"""
                     🏃  Everything looks great! Start Training!
                     """)
-
-    st.write("everything looks good")
+    train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop)
 
 else:
     st.write('Goodbye')
