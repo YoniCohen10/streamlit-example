@@ -174,7 +174,8 @@ random_or_date = st.radio(
 )
 
 if random_or_date == 'Random':
-    pass
+    cols = st.columns(1)
+    split_prop = cols[0].slider("Train/test size:", 10, 100, 5)
 
 else:
     date_feature = st.radio(
