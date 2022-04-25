@@ -148,6 +148,9 @@ target_feature = st.radio(
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
 
+print(ModelType)
+
+
 if ModelType == 'Classification' and len(shows[target_feature].value_counts()) > 2:
     st.success(
         f"""
