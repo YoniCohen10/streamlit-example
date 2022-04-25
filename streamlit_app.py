@@ -9,6 +9,7 @@ from st_aggrid.shared import JsCode
 ###################################
 
 from functionforDownloadButtons import download_button
+import dateutil.parser as parser
 
 
 ###################################
@@ -183,4 +184,5 @@ else:
     )
     cols = st.columns(2)
     date = cols[0].date_input("Bug date occurrence:")
-    bug_severity = cols[1].slider("Date split:", min(shows[date_feature]), max(shows[date_feature]))
+    bug_severity = cols[1].slider("Date split:", parser.parse(min(shows[date_feature]))
+                                  , parser.parse(max(shows[date_feature])))
