@@ -141,3 +141,9 @@ ModelType = st.radio(
     ["Regression", "Classification (Default)"],
     help="You need to choose the type of prediction you want to make about your target. More to come!",
 )
+
+target_feature = st.radio(
+    "Choose your target columns",
+    list(df.columns),
+    help="You need to choose the type of prediction you want to make about your target. More to come!",
+)
