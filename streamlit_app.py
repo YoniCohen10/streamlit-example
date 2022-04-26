@@ -251,9 +251,13 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     return
 
 
+if legit and col_to_drop.count(target_feature) < 1:
+    st.error('Looks like all the training defenitions are gread! press Train model and start training!')
+
+if not legit or not (col_to_drop.count(target_feature) < 1):
+    st.error('Looks like something with the training definition is wrong, please double check you training definitions')
+
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
     with st.spinner('Wait for it...'):
         train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop)
-if not legit or not (col_to_drop.count(target_feature) < 1):
-    st.error('Looks like something with the training definition is wrong, please double check you training definitions')
