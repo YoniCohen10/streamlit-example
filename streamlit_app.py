@@ -298,39 +298,36 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     # st.balloons()
 
 if train_over:
-    if ModelType == 'Classification (Default)':
-        form = st.form('show_results')
-        submit = form.form_submit_button("Refresh results")
-        if "class_threshold" not in st.session_state:
-            st.session_state.class_threshold = 0.5
+    while True:
+        if ModelType == 'Classification (Default)':
+            form = st.form('show_results')
+            class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
+                                          key='class_threshold')
+            submit = form.form_submit_button("Refresh results")
 
-        class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
-                                      key='class_threshold')
+            if submit:
+                pereds_label = np.where(pereds > class_threshold, 1, 0)
 
-        st.write(st.session_state.class_threshold)
-        # if submit:
-        #     pereds_label = np.where(pereds > class_threshold, 1, 0)
-        #
-        #     cf_matrix = confusion_matrix(y_test, pereds_label)
-        #
-        #     tn, fp, fn, tp = cf_matrix.ravel()
-        #
-        #     precision = tp / (tp + fp)
-        #     recall = tp / (tp + fn)
-        #
-        #     precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
-        #
-        #     disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-        #
-        #     st.header("Precision")
-        #     st.write(str(precision))
-        #
-        #     st.header("Recall")
-        #     st.write(str(recall))
-        #
-        #     st.header("prcision recall curve")
-        #     fig, ax = plt.subplots()
-        #     st.pyplot(fig)
-    else:
-        pass
+                cf_matrix = confusion_matrix(y_test, pereds_label)
+
+                tn, fp, fn, tp = cf_matrix.ravel()
+
+                precision = tp / (tp + fp)
+                recall = tp / (tp + fn)
+
+                precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
+
+                disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
+
+                st.header("Precision")
+                st.write(str(precision))
+
+                st.header("Recall")
+                st.write(str(recall))
+
+                st.header("prcision recall curve")
+                fig, ax = plt.subplots()
+                st.pyplot(fig)
+        else:
+            pass
     st.write('end')
