@@ -309,15 +309,18 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
         st.header("Precision")
-        st.write(str(precision_l))
+        st.write(str(precision))
 
         st.header("Recall")
-        st.write(str(recall_l))
+        st.write(str(recall))
 
         st.header("prcision recall curve")
+        plt.plot(disp.plot())
+        fig = plt.gcf()
+
         # disp.plot()
-        fig, ax = plt.subplots()
-        ax.plot(disp.plot())
+        # fig, ax = plt.subplots()
+        # ax.plot(disp.plot())
         st.pyplot(fig)
     # else:
     #     pass
