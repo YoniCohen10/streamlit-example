@@ -298,30 +298,31 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 if train_over:
     if ModelType == 'Classification (Default)':
-        class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
-        if class_threshold is not None and st.button('Update results'):
-            pereds_label = np.where(pereds > class_threshold, 1, 0)
+        while True:
+            class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
+            if class_threshold is not None and st.button('Update results'):
+                pereds_label = np.where(pereds > class_threshold, 1, 0)
 
-            cf_matrix = confusion_matrix(y_test, pereds_label)
+                cf_matrix = confusion_matrix(y_test, pereds_label)
 
-            tn, fp, fn, tp = cf_matrix.ravel()
-            precision = tp / (tp + fp)
-            recall = tp / (tp + fn)
+                tn, fp, fn, tp = cf_matrix.ravel()
+                precision = tp / (tp + fp)
+                recall = tp / (tp + fn)
 
-            precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
+                precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
 
-            disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
+                disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
 
-            st.header("Precision")
-            st.write(str(precision))
+                st.header("Precision")
+                st.write(str(precision))
 
-            st.header("Recall")
-            st.write(str(recall))
+                st.header("Recall")
+                st.write(str(recall))
 
-            st.header("prcision recall curve")
-            fig, ax = plt.subplots()
-            st.pyplot(fig)
-        else:
-            st.warning('bla')
+                st.header("prcision recall curve")
+                fig, ax = plt.subplots()
+                st.pyplot(fig)
+            else:
+                st.warning('bla')
     else:
         pass
