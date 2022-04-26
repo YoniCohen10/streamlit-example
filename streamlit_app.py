@@ -235,6 +235,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     if date_feature in col_to_drop: col_to_drop.remove(date_feature)
     data = data.drop(col_to_drop, axis=1)
     label = target_feature
+    X_train, X_test, y_train, y_test = _, _, _, _
     if random_or_date == 'Random':
         if date_feature != '':
             data = data.drop(date_feature, axis=1)
@@ -255,19 +256,25 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         X_test = test_set.drop(date_feature, axis=1).reset_index(drop=True)
         y_test = test_set[label].reset_index(drop=True)
 
+    dtrain = xgb.DMatrix(X_train, label=y_train)
+    dtest = xgb.DMatrix(X_test)
+    num_round = 100
     if modelType == 'Classification (Default)':
-        dtrain = xgb.DMatrix(X_train, label=y_train)
-        dtest = xgb.DMatrix(X_test)
         param = {'max_depth': 3, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 2, 'nthread': 48,
                  'colsample_bytree': 0.8, 'subsample': 0.8}
-        num_round = 100
-        bst = xgb.train(param, dtrain, num_round)
-        pereds = bst.predict(dtest)
     else:
-        pass
+        param = {'max_depth': 3, 'eta': 1, 'objective': 'reg:squarederror', 'n_jobs': -1, 'verbosity': 2, 'nthread': 48,
+                 'colsample_bytree': 0.8, 'subsample': 0.8}
+    bst = xgb.train(param, dtrain, num_round)
+    pereds = bst.predict(dtest)
     st.success('''Training complete!''')
-    return
+    return bst, pereds, X_train, X_test, y_train, y_test
 
+
+if shows.drop(col_to_drop, axis=1).shape[1] < 2:
+    legit = False
+else:
+    legit = True
 
 if legit and col_to_drop.count(target_feature) < 1:
     st.success('✅ Looks like all the training defenitions are gread! press Train model and start training!')
