@@ -300,37 +300,36 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 left, right = st.columns(2)
 
-if train_over:
-    if ModelType == 'Classification (Default)':
-        form = left.form('show_results')
-        class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
-                                      key='class_threshold')
-        st.write(f'{type(class_threshold)}')
-        submit = form.form_submit_button("Refresh results")
+if ModelType == 'Classification (Default)':
+    form = left.form('show_results')
+    class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
+                                  key='class_threshold')
+    st.write(f'{type(class_threshold)}')
+    submit = form.form_submit_button("Refresh results")
 
-        if submit:
-            pereds_label = np.where(pereds > class_threshold, 1, 0)
-            st.write("1")
-            cf_matrix = confusion_matrix(y_test, pereds_label)
+    if submit:
+        pereds_label = np.where(pereds > class_threshold, 1, 0)
+        st.write("1")
+        cf_matrix = confusion_matrix(y_test, pereds_label)
 
-            tn, fp, fn, tp = cf_matrix.ravel()
-            st.write("2")
-            precision = tp / (tp + fp)
-            recall = tp / (tp + fn)
+        tn, fp, fn, tp = cf_matrix.ravel()
+        st.write("2")
+        precision = tp / (tp + fp)
+        recall = tp / (tp + fn)
 
-            # precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
-            #
-            # disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-            st.write("3")
-            right.header("Precision")
-            right.write(str(precision))
+        # precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
+        #
+        # disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
+        st.write("3")
+        right.header("Precision")
+        right.write(str(precision))
 
-            # st.header("Recall")
-            # st.write(str(recall))
-            #
-            # st.header("prcision recall curve")
-            # fig, ax = plt.subplots()
-            # st.pyplot(fig)
-    else:
-        pass
-    st.write('end')
+        # st.header("Recall")
+        # st.write(str(recall))
+        #
+        # st.header("prcision recall curve")
+        # fig, ax = plt.subplots()
+        # st.pyplot(fig)
+# else:
+#     pass
+st.write('end')
