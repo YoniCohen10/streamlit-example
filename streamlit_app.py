@@ -180,8 +180,7 @@ if ModelType == 'Classification (Default)' and label_size == 2:
     )
 
 targrt_col_type = shows[target_feature].dtype
-if (ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'int', 'float']) or (
-        ModelType == 'Regression' and shows[target_feature].isna().sum() > 0):
+if ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'int', 'float']:
     st.error(
         f"""
                 💡 Note - You are trying to make a regression task with feature type {targrt_col_type},
@@ -326,4 +325,4 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.write(str(mean_squared_error(y_test, pereds)))
 else:
     # st.balloons()
-    st.error("123")
+    st.error("Press Train model and start training!")
