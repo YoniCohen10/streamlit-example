@@ -180,8 +180,8 @@ if ModelType == 'Classification (Default)' and label_size == 2:
     )
 
 targrt_col_type = shows[target_feature].dtype
-if (ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'int', 'float']) or shows[
-    target_feature].isna().sum() > 0:
+if (ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'int', 'float']) or (
+        ModelType == 'Regression' and shows[target_feature].isna().sum() > 0):
     st.error(
         f"""
                 💡 Note - You are trying to make a regression task with feature type {targrt_col_type},
