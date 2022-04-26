@@ -14,6 +14,7 @@ import dateutil.parser as parser
 ###################################
 from sklearn.model_selection import train_test_split
 import xgboost as xgb
+from stqdm import stqdm
 
 
 def _max_width_():
@@ -252,7 +253,8 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     st.success(f"""
                     🏃  Everything looks great! Start Training!
                     """)
-    train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop)
+    stqdm(train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date,
+                      col_to_drop))
 
 else:
     st.write('Goodbye')
