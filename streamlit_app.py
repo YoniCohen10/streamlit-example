@@ -235,6 +235,10 @@ col_to_drop = st.multiselect(
 
 st.write('You selected:', col_to_drop)
 
+if ModelType == 'Classification (Default)':
+    class_threshold = st.slider("Enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
+                                key='class_threshold')
+
 
 def train_model(data, modelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop):
     if date_feature in col_to_drop: col_to_drop.remove(date_feature)
@@ -294,8 +298,6 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
                                                                     split_prop, date_feature, split_date, col_to_drop)
     if ModelType == 'Classification (Default)' and bst is not None:
-        class_threshold = st.slider("Enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
-                                    key='class_threshold')
         pereds_label = np.where(pereds > class_threshold, 1, 0)
         cf_matrix = confusion_matrix(y_test, pereds_label)
 
