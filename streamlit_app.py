@@ -318,6 +318,6 @@ if train_over:
 
         with col3:
             st.header("prcision recall curve")
-            st.pyplot(disp)
+            st.pyplot(disp.plot())
     else:
         pass
