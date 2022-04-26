@@ -297,18 +297,8 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 if train_over:
     if ModelType == 'Classification (Default)':
-        valid_threshold = False
-        while not valid_threshold:
-            class_threshold = st.text_input("enter classification threshold:", placeholder='0.5')
-            try:
-                float(class_threshold)
-                if class_threshold < 0.00001 or class_threshold > 0.9999999:
-                    raise ValueError('wrong threshold')
-                valid_threshold = True
-            except:
-                st.error(f"Please enter float between 0 and 1, you have entered {class_threshold}")
+        class_threshold = st.number_input("enter classification threshold:", min_value=0.01, max_value=0.99)
 
-        class_threshold = float(class_threshold)
         pereds_label = np.where(pereds > class_threshold, 1, 0)
 
         precision, recall, _ = precision_recall_curve(y_test, pereds_label)
