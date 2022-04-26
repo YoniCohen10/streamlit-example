@@ -288,18 +288,23 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
     st.error(
         '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
+train_done = False
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
-    # with st.spinner('Wait for it...'):
-    bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
-                                                                split_prop, date_feature, split_date, col_to_drop)
+    with st.spinner('Wait for it...'):
+        bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
+                                                                    split_prop, date_feature, split_date, col_to_drop)
+    train_done = True
     # st.balloons()
+else:
+    st.error("123")
+
 
 left, right = st.columns(2)
 
-if ModelType == 'Classification (Default)':
+if ModelType == 'Classification (Default)' and train_done:
     form = left.form('show_results')
-    class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
+    class_threshold = form.slider("Enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
                                   key='class_threshold')
     st.write(f'{type(class_threshold)}')
     submit = form.form_submit_button("Refresh results")
