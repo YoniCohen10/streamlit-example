@@ -297,7 +297,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 if train_over:
     if ModelType == 'Classification (Default)':
-        class_threshold = st.number_input("enter classification threshold:", min_value=0.01, max_value=0.99)
+        class_threshold = st.number_input("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
 
         pereds_label = np.where(pereds > class_threshold, 1, 0)
 
@@ -318,6 +318,6 @@ if train_over:
 
         with col3:
             st.header("prcision recall curve")
-            st.image(cf_matrix)
+            st.pyplot(disp)
     else:
         pass
