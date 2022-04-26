@@ -14,8 +14,12 @@ import dateutil.parser as parser
 ###################################
 from sklearn.model_selection import train_test_split
 import xgboost as xgb
-from stqdm import stqdm
-from time import time
+from sklearn.metrics import precision_score, confusion_matrix
+from sklearn.metrics import recall_score
+import numpy as np
+from sklearn.metrics import plot_precision_recall_curve
+from sklearn.metrics import (precision_recall_curve,
+                             PrecisionRecallDisplay)
 
 
 def _max_width_():
@@ -286,4 +290,37 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
     with st.spinner('Wait for it...'):
-        train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop)
+        bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
+                                                                    split_prop, date_feature, split_date, col_to_drop)
+
+if ModelType == 'Classification (Default)':
+    class_threshold = st.text_input("enter classification threshold:")
+    try:
+        class_threshold = float(class_threshold)
+        if class_threshold < 0.00001 or class_threshold > 0.9999999:
+            raise ValueError('wrong threshold')
+    except:
+        st.error("Please enter float between 0 and 1")
+
+    pereds_label = np.where(pereds > class_threshold, 1, 0)
+
+    precision, recall, _ = precision_recall_curve(y_test, pereds_label)
+    disp = PrecisionRecallDisplay(precision=precision, recall=recall)
+
+    cf_matrix = confusion_matrix(y_test, pereds_label)
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.header("Precision")
+        st.write(str(precision))
+
+    with col2:
+        st.header("Recall")
+        st.write(str(recall))
+
+    with col3:
+        st.header("prcision recall curve")
+        st.image(disp.plot())
+else:
+    pass
