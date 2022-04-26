@@ -313,8 +313,8 @@ if ModelType == 'Classification (Default)' and train_done:
     precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
 
     disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-    right.header("Precision")
-    right.write(str(precision))
+    st.header("Precision")
+    st.write(str(precision))
 
     st.header("Recall")
     st.write(str(recall))
