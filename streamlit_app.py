@@ -298,9 +298,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 if train_over:
     if ModelType == 'Classification (Default)':
-        c29, c30, c31 = st.columns([1, 6, 1])
-        with c30:
-            class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
+        class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
         if st.button('Show results'):
             pereds_label = np.where(pereds > class_threshold, 1, 0)
 
