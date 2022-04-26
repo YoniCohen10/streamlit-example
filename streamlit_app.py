@@ -252,13 +252,8 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
-    st.success(f"""
-                    🏃  Everything looks great! Start Training!
-                    """)
+    st.success(f""" 🏃  Everything looks great! Start Training!""")
     with st.spinner('Wait for it...'):
-        train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date,col_to_drop)
-    # with st.spinner('Wait for it...'):
-    #     time.sleep(5)
-    # st.success('Done!')
+        train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop)
 else:
-    st.write('Goodbye')
+    st.error('Looks like something with the training definition is wrong, please double check you training definitions')
