@@ -299,7 +299,6 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 else:
     st.error("123")
 
-
 left, right = st.columns(2)
 
 form = left.form('show_results')
@@ -308,24 +307,24 @@ class_threshold = form.slider("Enter classification threshold:", min_value=0.01,
 st.write(f'{type(class_threshold)}')
 submit = form.form_submit_button("Refresh results")
 
-
 if submit:
     if ModelType == 'Classification (Default)' and train_done:
+        col1, col2, col3 = st.columns((1, 1, 1))
         pereds_label = np.where(pereds > class_threshold, 1, 0)
-        st.write("1")
+        # col1.write("1")
         cf_matrix = confusion_matrix(y_test, pereds_label)
 
         tn, fp, fn, tp = cf_matrix.ravel()
-        st.write("2")
+        # col1.write("2")
         precision = tp / (tp + fp)
         recall = tp / (tp + fn)
 
         # precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
         #
         # disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-        st.write("3")
-        right.header("Precision")
-        right.write(str(precision))
+        # col1.write("3")
+        col1.header("Precision")
+        col1.write(str(precision))
 
         # st.header("Recall")
         # st.write(str(recall))
