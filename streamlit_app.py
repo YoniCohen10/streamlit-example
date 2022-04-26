@@ -244,8 +244,8 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     if random_or_date == 'By date':
         data[date_feature] = data[date_feature].apply(lambda x: parser.parse(x))
 
-        train_set = data[data[date_feature] < parser.parse(split_date)]
-        test_set = data[data[date_feature] >= parser.parse(split_date)]
+        train_set = data[data[date_feature] < split_date]
+        test_set = data[data[date_feature] >= split_date]
 
         train_set = train_set.drop(date_feature, axis=1)
         test_set = test_set.drop(date_feature, axis=1)
