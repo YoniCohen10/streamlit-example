@@ -297,7 +297,9 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
 if train_over:
     if ModelType == 'Classification (Default)':
-        class_threshold = st.text_input("enter classification threshold:")
+        class_threshold = ''
+        while class_threshold == '':
+            class_threshold = st.text_input("enter classification threshold:")
         try:
             class_threshold = float(class_threshold)
             if class_threshold < 0.00001 or class_threshold > 0.9999999:
