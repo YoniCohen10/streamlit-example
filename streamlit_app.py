@@ -316,9 +316,10 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         st.header("prcision recall curve")
         disp.plot()
+        fig, ax = plt.subplot()
         # plt.show()
         # fig, ax = plt.subplots()
-        st.pyplot(plt.show())
+        st.pyplot(fig)
     # else:
     #     pass
 else:
