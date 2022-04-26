@@ -297,12 +297,15 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     train_over = True
     st.balloons()
 
-done = False
-if train_over and not done:
+if train_over:
     if ModelType == 'Classification (Default)':
         form = st.form('show_results')
         submit = form.form_submit_button("Refresh results")
-        class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
+        if "class_threshold" not in st.session_state:
+            st.session_state.class_threshold = 0.5
+
+        class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
+                                      key='class_threshold')
 
         if submit:
             pereds_label = np.where(pereds > class_threshold, 1, 0)
@@ -310,6 +313,7 @@ if train_over and not done:
             cf_matrix = confusion_matrix(y_test, pereds_label)
 
             tn, fp, fn, tp = cf_matrix.ravel()
+
             precision = tp / (tp + fp)
             recall = tp / (tp + fn)
 
@@ -326,9 +330,6 @@ if train_over and not done:
             st.header("prcision recall curve")
             fig, ax = plt.subplots()
             st.pyplot(fig)
-            if st.button('Done'):
-                done = True
     else:
         pass
-if done:
     st.write('end')
