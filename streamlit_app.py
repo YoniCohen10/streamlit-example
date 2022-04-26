@@ -255,6 +255,12 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
                     """)
     stqdm(train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date,
                       col_to_drop))
+    from time import sleep
+    from stqdm import stqdm
+
+    for _ in stqdm(range(50)):
+        for _ in stqdm(range(15)):
+            sleep(0.5)
 
 else:
     st.write('Goodbye')
