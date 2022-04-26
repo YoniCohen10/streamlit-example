@@ -315,7 +315,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.write(str(recall_l))
 
         st.header("prcision recall curve")
-        fig, ax = plt.subplots()
+        fig, ax = plt.plot()
         st.pyplot(fig)
     # else:
     #     pass
