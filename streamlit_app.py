@@ -294,9 +294,6 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
                                                                 split_prop, date_feature, split_date, col_to_drop)
     # st.balloons()
-else:
-    st.error("123")
-
 
 left, right = st.columns(2)
 
