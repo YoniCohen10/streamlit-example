@@ -295,15 +295,16 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
                                                                     split_prop, date_feature, split_date, col_to_drop)
     train_over = True
+    st.balloons()
 
-st.balloons()
-
-if train_over:
+done = False
+if train_over and not done:
     if ModelType == 'Classification (Default)':
         form = st.form('show_results')
         submit = form.form_submit_button("Refresh results")
+        class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
+
         if submit:
-            class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
             pereds_label = np.where(pereds > class_threshold, 1, 0)
 
             cf_matrix = confusion_matrix(y_test, pereds_label)
@@ -325,8 +326,9 @@ if train_over:
             st.header("prcision recall curve")
             fig, ax = plt.subplots()
             st.pyplot(fig)
-        else:
-            st.warning('bla')
+            if st.button('Done'):
+                done = True
     else:
         pass
+if done:
     st.write('end')
