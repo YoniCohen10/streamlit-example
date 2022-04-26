@@ -20,6 +20,7 @@ import numpy as np
 from sklearn.metrics import plot_precision_recall_curve
 from sklearn.metrics import (precision_recall_curve,
                              PrecisionRecallDisplay)
+import matplotlib.pyplot as plt
 
 
 def _max_width_():
@@ -303,6 +304,7 @@ if train_over:
 
         precision, recall, _ = precision_recall_curve(y_test, pereds_label)
         disp = PrecisionRecallDisplay(precision=precision, recall=recall)
+        disp.plot()
 
         cf_matrix = confusion_matrix(y_test, pereds_label)
 
@@ -318,6 +320,6 @@ if train_over:
 
         with col3:
             st.header("prcision recall curve")
-            st.pyplot(disp.plot())
+            st.pyplot(plt.show())
     else:
         pass
