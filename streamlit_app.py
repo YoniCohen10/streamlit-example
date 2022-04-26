@@ -309,10 +309,10 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
         st.header("Precision")
-        st.write(str(precision))
+        st.write(str(precision_l))
 
         st.header("Recall")
-        st.write(str(recall))
+        st.write(str(recall_l))
 
         st.header("prcision recall curve")
         fig, ax = plt.subplots()
