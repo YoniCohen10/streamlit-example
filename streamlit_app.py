@@ -299,7 +299,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 if train_over:
     if ModelType == 'Classification (Default)':
         class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
-        if class_threshold is not None:
+        if class_threshold is not None and st.button('Update results'):
             pereds_label = np.where(pereds > class_threshold, 1, 0)
 
             cf_matrix = confusion_matrix(y_test, pereds_label)
