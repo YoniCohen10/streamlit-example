@@ -157,7 +157,7 @@ legit = True
 threshold = 2
 label_size = len(shows[target_feature].value_counts())
 if ModelType == 'Classification (Default)' and label_size > threshold:
-    st.success(
+    st.error(
         f"""
             💡 Note - You are trying to make a classification task with more then {threshold}, 
             currently your target label has {label_size} unique values, 
@@ -172,6 +172,24 @@ if ModelType == 'Classification (Default)' and label_size == 2:
             ✅  Your label column has exactly 2 values.
             """
     )
+
+targrt_col_type = shows[target_feature].dtype
+if ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'int', 'float']:
+    st.error(
+        f"""
+                💡 Note - You are trying to make a regression task with feature type {targrt_col_type},
+                regression tasks tries to predict continuous value i.e. - ints or floats 
+                """
+    )
+    legit = False
+else:
+    legit = True
+    st.success(
+        f"""
+                ✅  Your label column has continuous values.
+                """
+    )
+
 random_or_date = st.radio(
     "Choose your split strategy",
     ['Random', 'By date'],
@@ -255,7 +273,8 @@ if legit and col_to_drop.count(target_feature) < 1:
     st.success('✅ Looks like all the training defenitions are gread! press Train model and start training!')
 
 if not legit or not (col_to_drop.count(target_feature) < 1):
-    st.error('❌ Looks like something with the training definition is wrong, please double check you training definitions')
+    st.error(
+        '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
