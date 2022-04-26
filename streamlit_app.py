@@ -305,6 +305,7 @@ if train_over:
         form = left.form('show_results')
         class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
                                       key='class_threshold')
+        st.write(f'{type(class_threshold)}')
         submit = form.form_submit_button("Refresh results")
 
         if submit:
