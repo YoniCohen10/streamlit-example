@@ -300,7 +300,7 @@ else:
     st.error("123")
 
 
-if ModelType == 'Classification (Default)' and train_done:
+if ModelType == 'Classification (Default)' and bst is not None:
     class_threshold = st.slider("Enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
                                   key='class_threshold')
     pereds_label = np.where(pereds > class_threshold, 1, 0)
