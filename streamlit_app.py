@@ -316,8 +316,8 @@ if train_over:
             st.header("Recall")
             st.write(str(recall))
 
-        with col3:
-            st.header("prcision recall curve")
-            st.image(disp.plot())
+        # with col3:
+        #     st.header("prcision recall curve")
+        #     st.image(disp.plot())
     else:
         pass
