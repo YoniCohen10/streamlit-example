@@ -250,10 +250,10 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         train_set = train_set.drop(date_feature, axis=1)
         test_set = test_set.drop(date_feature, axis=1)
 
-        X_train = train_set.drop(date_feature, axis=1).reset_index(drop=True)
+        X_train = train_set.drop(label, axis=1).reset_index(drop=True)
         y_train = train_set[label].reset_index(drop=True)
 
-        X_test = test_set.drop(date_feature, axis=1).reset_index(drop=True)
+        X_test = test_set.drop(label, axis=1).reset_index(drop=True)
         y_test = test_set[label].reset_index(drop=True)
 
     dtrain = xgb.DMatrix(X_train, label=y_train)
