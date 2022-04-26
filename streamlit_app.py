@@ -162,6 +162,7 @@ legit = True
 
 threshold = 2
 label_size = len(shows[target_feature].value_counts())
+
 if ModelType == 'Classification (Default)' and label_size > threshold:
     st.error(
         f"""
@@ -171,6 +172,7 @@ if ModelType == 'Classification (Default)' and label_size > threshold:
             """
     )
     legit = False
+
 if ModelType == 'Classification (Default)' and label_size == 2:
     legit = True
     st.success(
@@ -190,11 +192,12 @@ if ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'in
     legit = False
 else:
     legit = True
-    st.success(
-        f"""
-                ✅  Your label column has continuous values.
-                """
-    )
+    if ModelType == 'Regression':
+        st.success(
+            f"""
+                    ✅  Your label column has continuous values.
+                    """
+        )
 
 random_or_date = st.radio(
     "Choose your split strategy",
