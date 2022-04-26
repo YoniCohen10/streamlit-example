@@ -235,7 +235,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     if date_feature in col_to_drop: col_to_drop.remove(date_feature)
     data = data.drop(col_to_drop, axis=1)
     label = target_feature
-    X_train, X_test, y_train, y_test = _, _, _, _
+    X_train, X_test, y_train, y_test = '', '', '', ''
     if random_or_date == 'Random':
         if date_feature != '':
             data = data.drop(date_feature, axis=1)
