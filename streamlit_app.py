@@ -305,6 +305,7 @@ if train_over:
         except:
             st.error("Please enter float between 0 and 1")
 
+        class_threshold = float(class_threshold)
         pereds_label = np.where(pereds > class_threshold, 1, 0)
 
         precision, recall, _ = precision_recall_curve(y_test, pereds_label)
