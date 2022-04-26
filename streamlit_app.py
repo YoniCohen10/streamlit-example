@@ -300,15 +300,9 @@ else:
     st.error("123")
 
 
-left, right = st.columns(2)
-
-if ModelType == 'Classification (Default)':
-    # form = left.form('show_results')
+if ModelType == 'Classification (Default)' and train_done:
     class_threshold = st.slider("Enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5,
                                   key='class_threshold')
-    # submit = form.form_submit_button("Refresh results")
-
-    # if submit:
     pereds_label = np.where(pereds > class_threshold, 1, 0)
     cf_matrix = confusion_matrix(y_test, pereds_label)
 
