@@ -21,6 +21,7 @@ from sklearn.metrics import plot_precision_recall_curve
 from sklearn.metrics import (precision_recall_curve,
                              PrecisionRecallDisplay)
 import matplotlib.pyplot as plt
+from sklearn.metrics import mean_squared_error
 
 
 def _max_width_():
@@ -316,18 +317,12 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         st.header("prcision recall curve")
         disp.plot()
-        # plt.plot()
-        fig = plt.gcf()
 
-        # disp.plot()
-        # fig, ax = plt.subplots()
-        # ax.plot(disp.plot())
+        fig = plt.gcf()
         st.pyplot(fig)
-    # else:
-    #     pass
+    else:
+        st.header("MSE")
+        st.write(str(mean_squared_error(y_test, pereds)))
 else:
     # st.balloons()
     st.error("123")
-
-
-
