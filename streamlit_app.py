@@ -309,18 +309,18 @@ if train_over:
 
         if submit:
             pereds_label = np.where(pereds > class_threshold, 1, 0)
-
+            st.write("1")
             cf_matrix = confusion_matrix(y_test, pereds_label)
 
             tn, fp, fn, tp = cf_matrix.ravel()
-
+            st.write("2")
             precision = tp / (tp + fp)
             recall = tp / (tp + fn)
 
             # precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
             #
             # disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-
+            st.write("3")
             right.header("Precision")
             right.write(str(precision))
 
