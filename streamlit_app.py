@@ -301,31 +301,32 @@ if train_over:
         c29, c30, c31 = st.columns([1, 6, 1])
         with c30:
             class_threshold = st.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
-        pereds_label = np.where(pereds > class_threshold, 1, 0)
+        if st.button('Show results'):
+            pereds_label = np.where(pereds > class_threshold, 1, 0)
 
-        cf_matrix = confusion_matrix(y_test, pereds_label)
+            cf_matrix = confusion_matrix(y_test, pereds_label)
 
-        tn, fp, fn, tp = cf_matrix.ravel()
-        precision = tp / (tp + fp)
-        recall = tp / (tp + fn)
+            tn, fp, fn, tp = cf_matrix.ravel()
+            precision = tp / (tp + fp)
+            recall = tp / (tp + fn)
 
-        precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
+            precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
 
-        disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
+            disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
 
-        col1, col2, col3 = st.columns(3)
+            col1, col2, col3 = st.columns(3)
 
-        with col1:
-            st.header("Precision")
-            st.write(str(precision))
+            with col1:
+                st.header("Precision")
+                st.write(str(precision))
 
-        with col2:
-            st.header("Recall")
-            st.write(str(recall))
+            with col2:
+                st.header("Recall")
+                st.write(str(recall))
 
-        with col3:
-            st.header("prcision recall curve")
-            fig, ax = plt.subplots()
-            st.pyplot(fig)
+            with col3:
+                st.header("prcision recall curve")
+                fig, ax = plt.subplots()
+                st.pyplot(fig)
     else:
         pass
