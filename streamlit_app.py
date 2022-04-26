@@ -239,28 +239,20 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     if modelType == 'Classification (Default)':
         dtrain = xgb.DMatrix(X_train, label=y_train)
         dtest = xgb.DMatrix(X_test)
-        param = {'max_depth': 3, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 3, 'nthread': 48,
+        param = {'max_depth': 3, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 1, 'nthread': 48,
                  'colsample_bytree': 0.8, 'subsample': 0.8}
         num_round = 100
         bst = xgb.train(param, dtrain, num_round)
         pereds = bst.predict(dtest)
-        st.success('''Traning complete!''')
     else:
         pass
+    st.success('''Traning complete!''')
 
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f"""
                     🏃  Everything looks great! Start Training!
                     """)
-    stqdm(train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date,
-                      col_to_drop))
-    from time import sleep
-    from stqdm import stqdm
-
-    for _ in stqdm(range(50)):
-        for _ in stqdm(range(15)):
-            sleep(0.5)
-
+    stqdm(train_model(shows, ModelType, target_feature, random_or_date, split_prop, date_feature, split_date,col_to_drop))
 else:
     st.write('Goodbye')
