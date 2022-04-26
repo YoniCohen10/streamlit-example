@@ -312,20 +312,15 @@ if train_over:
 
             disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
 
-            col1, col2, col3 = st.columns(3)
+            st.header("Precision")
+            st.write(str(precision))
 
-            with col1:
-                st.header("Precision")
-                st.write(str(precision))
+            st.header("Recall")
+            st.write(str(recall))
 
-            with col2:
-                st.header("Recall")
-                st.write(str(recall))
-
-            with col3:
-                st.header("prcision recall curve")
-                fig, ax = plt.subplots()
-                st.pyplot(fig)
+            st.header("prcision recall curve")
+            fig, ax = plt.subplots()
+            st.pyplot(fig)
         else:
             st.warning('bla')
     else:
