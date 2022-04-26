@@ -199,7 +199,7 @@ else:
                                     , parser.parse(max(shows[date_feature])))
     except:
         legit = False
-        st.success(
+        st.error(
             f"""
                     ❌  The date format is unknown!
                     """
@@ -252,10 +252,10 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
 
 if legit and col_to_drop.count(target_feature) < 1:
-    st.error('Looks like all the training defenitions are gread! press Train model and start training!')
+    st.success('✅ Looks like all the training defenitions are gread! press Train model and start training!')
 
 if not legit or not (col_to_drop.count(target_feature) < 1):
-    st.error('Looks like something with the training definition is wrong, please double check you training definitions')
+    st.error('❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
