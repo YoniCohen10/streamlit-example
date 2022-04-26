@@ -290,9 +290,9 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
-    with st.spinner('Wait for it...'):
-        bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
-                                                                    split_prop, date_feature, split_date, col_to_drop)
+    # with st.spinner('Wait for it...'):
+    bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
+                                                                split_prop, date_feature, split_date, col_to_drop)
     # st.balloons()
 else:
     st.error("123")
