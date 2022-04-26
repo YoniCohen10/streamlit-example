@@ -308,7 +308,9 @@ if train_over:
         precision = tp / (tp + fp)
         recall = tp / (tp + fn)
 
-        disp = PrecisionRecallDisplay(precision=precision, recall=recall)
+        precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
+
+        disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
 
         col1, col2, col3 = st.columns(3)
 
