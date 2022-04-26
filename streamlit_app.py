@@ -302,11 +302,13 @@ if train_over:
 
         pereds_label = np.where(pereds > class_threshold, 1, 0)
 
-        precision, recall, _ = precision_recall_curve(y_test, pereds_label)
-        disp = PrecisionRecallDisplay(precision=precision, recall=recall)
-        disp.plot()
-
         cf_matrix = confusion_matrix(y_test, pereds_label)
+
+        tn, fp, fn, tp = cf_matrix.ravel()
+        precision = tp / (tp + fp)
+        recall = tp / (tp + fn)
+
+        disp = PrecisionRecallDisplay(precision=precision, recall=recall)
 
         col1, col2, col3 = st.columns(3)
 
@@ -320,6 +322,7 @@ if train_over:
 
         with col3:
             st.header("prcision recall curve")
-            st.pyplot(plt.show())
+            fig, ax = plt.subplots()
+            st.pyplot(fig)
     else:
         pass
