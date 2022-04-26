@@ -302,6 +302,7 @@ if train_over:
         class_threshold = form.slider("enter classification threshold:", min_value=0.01, max_value=0.99, value=0.5)
         submit = form.form_submit_button("Refresh results")
         if submit:
+            col1, col2, col3 = st.columns((1, 1, 1))
             pereds_label = np.where(pereds > class_threshold, 1, 0)
 
             cf_matrix = confusion_matrix(y_test, pereds_label)
@@ -314,15 +315,15 @@ if train_over:
 
             disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
 
-            st.header("Precision")
-            st.write(str(precision))
+            col1.header("Precision")
+            col1.write(str(precision))
 
-            st.header("Recall")
-            st.write(str(recall))
+            col2.header("Recall")
+            col2.write(str(recall))
 
-            st.header("prcision recall curve")
+            col3.header("prcision recall curve")
             fig, ax = plt.subplots()
-            st.pyplot(fig)
+            col3.pyplot(fig)
         else:
             st.warning('bla')
     else:
