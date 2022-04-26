@@ -288,14 +288,14 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
     st.error(
         '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
-train_over = False
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
     with st.spinner('Wait for it...'):
         bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
                                                                     split_prop, date_feature, split_date, col_to_drop)
-    train_over = True
     # st.balloons()
+else:
+    st.error("123")
 
 
 left, right = st.columns(2)
