@@ -247,6 +247,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     else:
         pass
     st.success('''Traning complete!''')
+    return
 
 
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
