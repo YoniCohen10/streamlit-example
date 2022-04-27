@@ -305,6 +305,9 @@ train_error = False
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     if not train_error:
         st.success(f""" 🏃  Everything looks great! Start Training!""")
+    else:
+        st.error(
+            '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
     try:
         with st.spinner('Wait for it...'):
             bst, pereds, X_train, X_test, y_train, y_test, param = train_model(shows, ModelType, target_feature,
@@ -313,8 +316,6 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
                                                                                col_to_drop)
         train_over = True
     except:
-        st.error(
-            '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
         train_error = True
 
     images_to_save = []
