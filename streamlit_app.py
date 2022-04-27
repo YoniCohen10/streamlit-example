@@ -39,15 +39,8 @@ def _max_width_():
     )
 
 
-def do_stuff_on_page_load():
-    st.set_page_config(layout="wide")
 
-
-once = 0
-
-if once == 0:
-    do_stuff_on_page_load()
-    once += 1
+st.set_page_config(layout="wide")
 
 st.set_page_config(page_icon="🧠", page_title="DSandbox")
 
