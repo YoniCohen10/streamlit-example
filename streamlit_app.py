@@ -50,7 +50,7 @@ col3.image(
 )
 
 col1, col2, col3, col4, col5 = st.columns((1, 1, 1, 1, 1))
-col3.title("DSandbox 🧠")
+col3.title("DSandbox")
 
 # st.caption(
 #     "PRD : TBC | Streamlit Ag-Grid from Pablo Fonseca: https://pypi.org/project/streamlit-aggrid/"
