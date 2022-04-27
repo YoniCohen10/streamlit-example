@@ -39,10 +39,9 @@ def _max_width_():
     )
 
 
+# st.set_page_config(layout="wide")
 
-st.set_page_config(layout="wide")
-
-st.set_page_config(page_icon="🧠", page_title="DSandbox")
+st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide")
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 
