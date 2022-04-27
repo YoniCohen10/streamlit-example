@@ -322,21 +322,22 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("Recall")
         st.write(str(recall))
 
-        st.header("precision recall curve")
+        right, left = st.columns((1,1))
+        right.header("precision recall curve")
         disp.plot()
         fig = plt.gcf()
         fig.set_size_inches(2, 1)
-        st.pyplot(fig)
+        right.pyplot(fig)
         images_to_save.append(fig)
         plt.clf()
 
-        st.header("predictions histogram")
+        left.header("predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
         fig1.set_size_inches(2, 1)
         images_to_save.append(fig1)
         plt.plot()
-        st.pyplot(fig1)
+        left.pyplot(fig1)
 
     else:
         st.header("MSE")
