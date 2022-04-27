@@ -300,6 +300,7 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
     st.error(
         '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
+train_over = False
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
     try:
@@ -308,12 +309,13 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
                                                                                random_or_date,
                                                                                split_prop, date_feature, split_date,
                                                                                col_to_drop)
+        train_over = True
     except:
         st.error(
             '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
 
     images_to_save = []
-    if ModelType == 'Classification (Default)' and bst is not None:
+    if ModelType == 'Classification (Default)' and train_over:
         pereds_label = np.where(pereds > class_threshold, 1, 0)
         cf_matrix = confusion_matrix(y_test, pereds_label)
 
@@ -347,7 +349,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         plt.plot()
         left.pyplot(fig1)
 
-    else:
+    elif ModelType == 'Regression' and train_over:
         st.header("MSE")
         st.write(str(mean_squared_error(y_test, pereds)))
 
@@ -359,26 +361,26 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         fig.set_size_inches(7, 3.5)
         images_to_save.append(fig)
         st.pyplot(fig)
-
-    X_test['predictions'] = pereds
-    X_test['label'] = y_test
-    X_train['label'] = y_train
-    model_to_save = bst
-    model_parameters = param
-    l = []
-    c1, c2, c3, c4 = st.columns((1, 1, 1))
-    with c1:
-        download_button(X_train,
-                        "train_data.csv",
-                        "⬇️ Train data")
-    with c2:
-        download_button(X_test,
-                        "test_data.csv",
-                        "⬇️ Test data")
-    with c3:
-        download_button(pickle.dumps(model_to_save),
-                        "model.pkl",
-                        "⬇️ Trained model")
+    if train_over:
+        X_test['predictions'] = pereds
+        X_test['label'] = y_test
+        X_train['label'] = y_train
+        model_to_save = bst
+        model_parameters = param
+        l = []
+        c1, c2, c3, c4 = st.columns((1, 1, 1))
+        with c1:
+            download_button(X_train,
+                            "train_data.csv",
+                            "⬇️ Train data")
+        with c2:
+            download_button(X_test,
+                            "test_data.csv",
+                            "⬇️ Test data")
+        with c3:
+            download_button(pickle.dumps(model_to_save),
+                            "model.pkl",
+                            "⬇️ Trained model")
 
     # from matplotlib.backends.backend_pdf import PdfPages
     #
