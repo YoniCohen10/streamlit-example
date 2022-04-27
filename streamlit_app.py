@@ -22,6 +22,7 @@ from sklearn.metrics import (precision_recall_curve,
                              PrecisionRecallDisplay)
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
+import pickle
 
 
 def _max_width_():
@@ -358,6 +359,18 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         download_button(X_train,
                         "train_data.csv",
                         "⬇️ Train data")
+    with c2:
+        download_button(X_test,
+                        "test_data.csv",
+                        "⬇️ Test data")
+    with c3:
+        download_button(pickle.dumps(model_to_save),
+                        "train_data.csv",
+                        "⬇️ Train data")
+    with c4:
+        download_button(fig,
+                        "fig.jpg",
+                        "⬇️ image")
 
 
 else:
