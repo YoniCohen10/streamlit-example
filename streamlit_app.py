@@ -335,7 +335,8 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.write(str(mean_squared_error(y_test, pereds)))
 
         st.header("predictions histogram")
-        plt.bar(np.arange(len(pereds)), pereds).plot()
+        plt.bar(np.arange(len(pereds)), pereds)
+        plt.plot()
 
         fig = plt.gcf()
         st.pyplot(fig)
