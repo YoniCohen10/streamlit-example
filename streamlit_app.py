@@ -42,12 +42,14 @@ def _max_width_():
 st.set_page_config(page_icon="🧠", page_title="DSandbox")
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
-st.image(
+
+col1, col2, col3, col4 = st.columns((1,1,1,1))
+col2.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/brain_1f9e0.png",
     width=100,
 )
 
-st.title("DSandbox")
+col3.title("DSandbox")
 
 # st.caption(
 #     "PRD : TBC | Streamlit Ag-Grid from Pablo Fonseca: https://pypi.org/project/streamlit-aggrid/"
@@ -323,7 +325,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.write(str(recall))
 
         right, left = st.columns((1,1))
-        right.header("precision recall curve")
+        right.header("Precision recall curve")
         disp.plot()
         fig = plt.gcf()
         fig.set_size_inches(7, 3.5)
@@ -331,7 +333,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         images_to_save.append(fig)
         plt.clf()
 
-        left.header("predictions histogram")
+        left.header("Predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
         fig1.set_size_inches(7, 3.5)
@@ -343,7 +345,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("MSE")
         st.write(str(mean_squared_error(y_test, pereds)))
 
-        st.header("predictions histogram")
+        st.header("Predictions histogram")
         plt.hist(pereds)
         plt.plot()
 
@@ -358,7 +360,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     model_to_save = bst
     model_parameters = param
     l = []
-    c1, c2, c3, c4 = st.columns((1, 1, 1, 1))
+    c1, c2, c3, c4 = st.columns((1, 1, 1))
     with c1:
         download_button(X_train,
                         "train_data.csv",
