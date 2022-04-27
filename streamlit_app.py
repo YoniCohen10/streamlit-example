@@ -43,12 +43,14 @@ st.set_page_config(page_icon="🧠", page_title="DSandbox")
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 
-col1 = st.columns((1))
-col1.image(
+col1, col2, col3 = st.columns((1, 1, 1))
+col2.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/brain_1f9e0.png",
     width=100,
 )
-col1 = st.columns((1))
+
+col1, col2, col3 = st.columns((1, 1, 1))
+col2 = st.columns((1))
 col1.title("DSandbox")
 
 # st.caption(
@@ -324,7 +326,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("Recall")
         st.write(str(recall))
 
-        right, left = st.columns((1,1))
+        right, left = st.columns((1, 1))
         right.header("Precision recall curve")
         disp.plot()
         fig = plt.gcf()
