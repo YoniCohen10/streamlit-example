@@ -281,7 +281,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     bst = xgb.train(param, dtrain, num_round)
     pereds = bst.predict(dtest)
     st.success('''Training complete!''')
-    return bst, pereds, X_train, X_test, y_train, y_test
+    return bst, pereds, X_train, X_test, y_train, y_test, param
 
 
 if shows.drop(col_to_drop, axis=1).shape[1] < 2:
@@ -299,8 +299,11 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
     st.success(f""" 🏃  Everything looks great! Start Training!""")
     with st.spinner('Wait for it...'):
-        bst, pereds, X_train, X_test, y_train, y_test = train_model(shows, ModelType, target_feature, random_or_date,
-                                                                    split_prop, date_feature, split_date, col_to_drop)
+        bst, pereds, X_train, X_test, y_train, y_test, param = train_model(shows, ModelType, target_feature,
+                                                                           random_or_date,
+                                                                           split_prop, date_feature, split_date,
+                                                                           col_to_drop)
+    images_to_save = []
     if ModelType == 'Classification (Default)' and bst is not None:
         pereds_label = np.where(pereds > class_threshold, 1, 0)
         cf_matrix = confusion_matrix(y_test, pereds_label)
@@ -321,14 +324,14 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("precision recall curve")
         disp.plot()
         fig = plt.gcf()
-        fig.set_size_inches(15, 7)
+        fig.set_size_inches(7.5, 3.5)
         st.pyplot(fig)
         plt.clf()
 
         st.header("predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
-        fig1.set_size_inches(15, 7)
+        fig1.set_size_inches(7.5, 3.5)
         plt.plot()
         st.pyplot(fig1)
 
@@ -341,8 +344,22 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         plt.plot()
 
         fig = plt.gcf()
-        fig.set_size_inches(15, 7)
+        fig.set_size_inches(7.5, 3.5)
         st.pyplot(fig)
+
+    X_test['predictions'] = pereds
+    X_test['label'] = y_test
+    X_train['label'] = y_train
+    model_to_save = bst
+    model_parameters = param
+    l = []
+    c1, c2, c3, c4 = st.columns((1, 1, 1, 1))
+    c1.download_button("⬇️ Train data",
+                       data=X_train.to_csv('train.csv'),
+                       file_name="train.csv",
+                       mime="application/octet-stream")
+
+
 else:
     # st.balloons()
     st.error("Press Train model and start training!")
