@@ -44,7 +44,7 @@ st.set_page_config(page_icon="🧠", page_title="DSandbox")
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
-col3.image(
+col4.image(
     "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/brain_1f9e0.png",
     width=100,
 )
