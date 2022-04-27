@@ -327,12 +327,14 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         fig = plt.gcf()
         fig.set_size_inches(7.5, 3.5)
         st.pyplot(fig)
+        images_to_save.append(fig)
         plt.clf()
 
         st.header("predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
         fig1.set_size_inches(7.5, 3.5)
+        images_to_save.append(fig1)
         plt.plot()
         st.pyplot(fig1)
 
@@ -346,6 +348,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         fig = plt.gcf()
         fig.set_size_inches(7.5, 3.5)
+        images_to_save.append(fig)
         st.pyplot(fig)
 
     X_test['predictions'] = pereds
@@ -367,10 +370,15 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         download_button(pickle.dumps(model_to_save),
                         "train_data.csv",
                         "⬇️ Train data")
+
+    from matplotlib.backends.backend_pdf import PdfPages
+    pp = PdfPages('foo.pdf')
+    for im in images_to_save:
+        pp.savefig(im)
     with c4:
-        download_button(fig,
-                        "fig.jpg",
-                        "⬇️ image")
+        download_button(pp,
+                        "images.pdf",
+                        "⬇️ Images")
 
 
 else:
