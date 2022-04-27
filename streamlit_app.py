@@ -322,6 +322,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         disp.plot()
         fig = plt.gcf()
         st.pyplot(fig)
+        plt.clf()
 
         st.header("predictions histogram")
         plt.bar(np.arange(len(pereds)), pereds)
