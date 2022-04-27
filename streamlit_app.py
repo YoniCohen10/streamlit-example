@@ -321,12 +321,14 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("precision recall curve")
         disp.plot()
         fig = plt.gcf()
+        fig.set_size_inches(15, 7)
         st.pyplot(fig)
         plt.clf()
 
         st.header("predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
+        fig1.set_size_inches(15, 7)
         plt.plot()
         st.pyplot(fig1)
 
@@ -339,6 +341,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         plt.plot()
 
         fig = plt.gcf()
+        fig.set_size_inches(15, 7)
         st.pyplot(fig)
 else:
     # st.balloons()
