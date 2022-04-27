@@ -45,7 +45,7 @@ st.set_page_config(page_icon="🧠", page_title="DSandbox")
 
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
 col4.image(
-    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/brain_1f9e0.png",
+    "https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/325/person-running_1f3c3.png",
     width=100,
 )
 
