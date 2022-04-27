@@ -368,15 +368,16 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
                         "⬇️ Test data")
     with c3:
         download_button(pickle.dumps(model_to_save),
-                        "train_data.csv",
+                        "model.pkl",
                         "⬇️ Train data")
 
     from matplotlib.backends.backend_pdf import PdfPages
+
     pp = PdfPages('foo.pdf')
     for im in images_to_save:
         pp.savefig(im)
     with c4:
-        download_button(pp,
+        download_button(pickle.dumps(pp),
                         "images.pdf",
                         "⬇️ Images")
 
