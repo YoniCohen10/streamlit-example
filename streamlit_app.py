@@ -372,7 +372,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
                         "model.pkl",
                         "⬇️ Trained model")
 
-    # from matplotlib.backends.backend_pdf import PdfPages
+    from matplotlib.backends.backend_pdf import PdfPages
     #
     # pp = PdfPages('foo.pdf')
     # for im in images_to_save:
