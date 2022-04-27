@@ -355,7 +355,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     l = []
     c1, c2, c3, c4 = st.columns((1, 1, 1, 1))
     with c1:
-        download_button(df,
+        download_button(X_train,
                         "train_data.csv",
                         "⬇️ Train data")
 
