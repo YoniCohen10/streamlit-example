@@ -320,15 +320,13 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
 
         st.header("precision recall curve")
         disp.plot()
-
-        fig1 = plt.figure()
-        st.pyplot(fig1)
+        fig = plt.gcf()
+        st.pyplot(fig)
 
         st.header("predictions histogram")
         plt.bar(np.arange(len(pereds)), pereds)
-
-        fig2 = plt.figure()
-        st.pyplot(fig2)
+        fig1 = plt.gcf()
+        st.pyplot(fig1)
 
     else:
         st.header("MSE")
