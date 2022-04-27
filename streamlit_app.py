@@ -378,7 +378,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         pp.savefig(im)
     pp.close()
     with c4:
-        download_button(pickle.dumps(pp),
+        download_button(pp,
                         "images.pdf",
                         "⬇️ Images")
 
