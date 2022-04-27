@@ -301,8 +301,10 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
         '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
 train_over = False
+train_error = False
 if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
-    st.success(f""" 🏃  Everything looks great! Start Training!""")
+    if not train_error:
+        st.success(f""" 🏃  Everything looks great! Start Training!""")
     try:
         with st.spinner('Wait for it...'):
             bst, pereds, X_train, X_test, y_train, y_test, param = train_model(shows, ModelType, target_feature,
@@ -313,6 +315,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     except:
         st.error(
             '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
+        train_error = True
 
     images_to_save = []
     if ModelType == 'Classification (Default)' and train_over:
@@ -368,7 +371,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         model_to_save = bst
         model_parameters = param
         l = []
-        c1, c2, c3= st.columns((1, 1, 1))
+        c1, c2, c3 = st.columns((1, 1, 1))
         with c1:
             download_button(X_train,
                             "train_data.csv",
