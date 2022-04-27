@@ -325,7 +325,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("precision recall curve")
         disp.plot()
         fig = plt.gcf()
-        fig.set_size_inches(7.5, 3.5)
+        fig.set_size_inches(2, 1)
         st.pyplot(fig)
         images_to_save.append(fig)
         plt.clf()
@@ -333,7 +333,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         st.header("predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
-        fig1.set_size_inches(7.5, 3.5)
+        fig1.set_size_inches(2, 1)
         images_to_save.append(fig1)
         plt.plot()
         st.pyplot(fig1)
@@ -347,7 +347,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
         plt.plot()
 
         fig = plt.gcf()
-        fig.set_size_inches(7.5, 3.5)
+        fig.set_size_inches(2, 1)
         images_to_save.append(fig)
         st.pyplot(fig)
 
@@ -369,7 +369,7 @@ if st.button('Train model!') and legit and col_to_drop.count(target_feature) < 1
     with c3:
         download_button(pickle.dumps(model_to_save),
                         "model.pkl",
-                        "⬇️ Train data")
+                        "⬇️ Trained model")
 
     # from matplotlib.backends.backend_pdf import PdfPages
     #
