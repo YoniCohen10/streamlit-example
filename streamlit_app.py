@@ -49,8 +49,8 @@ col4.image(
     width=100,
 )
 
-col1, col2, col3, col4, col5 = st.columns((1, 1, 1, 1, 1))
-col3.title("DSandbox")
+col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
+col4.title("DSandbox")
 
 # st.caption(
 #     "PRD : TBC | Streamlit Ag-Grid from Pablo Fonseca: https://pypi.org/project/streamlit-aggrid/"
@@ -369,7 +369,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         model_to_save = bst
         model_parameters = param
         l = []
-        c1, c2, c3= st.columns((1, 1, 1))
+        c1, c2, c3 = st.columns((1, 1, 1))
         with c1:
             download_button(X_train,
                             "train_data.csv",
