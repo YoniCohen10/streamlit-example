@@ -281,6 +281,9 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     all_cols = data.columns
     num_cols = data._get_numeric_data().columns
     cat_cols = list(set(all_cols) - set(num_cols))
+
+    X_train[target_feature] = y_train
+    X_test[target_feature] = y_test
     for col in cat_cols:
         encoder = TargetEncoder()
         X_train[f'{col}_encoded'] = encoder.fit_transform(X_train[col], X_train[target_feature])
@@ -288,6 +291,9 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
         X_test[f'{col}_encoded'] = encoder.transform(X_test[col])
         X_test.drop(col, axis=1, inplace=True)
+
+    X_train.drop(target_feature, axis=1, inplace=True)
+    X_test.drop(target_feature, axis=1, inplace=True)
 
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dtest = xgb.DMatrix(X_test)
