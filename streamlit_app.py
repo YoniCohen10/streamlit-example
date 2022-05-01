@@ -406,7 +406,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         right.image(buf)
 
         # right.pyplot(fig)
-        # plt.clf()
+        plt.clf()
 
         left.subheader("Predictions histogram")
         plt.hist(pereds)
