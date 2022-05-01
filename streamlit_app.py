@@ -431,6 +431,8 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         st.subheader("Predictions histogram")
         plt.hist(pereds)
         plt.plot()
+        plt.xlabel(target_feature, fontsize=9)
+        plt.ylabel('Amount', fontsize=9)
 
         fig = plt.gcf()
         fig.set_size_inches(7, 5)
