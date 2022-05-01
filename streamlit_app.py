@@ -1,3 +1,5 @@
+import math
+
 import streamlit as st
 import pandas as pd
 
@@ -23,7 +25,7 @@ from sklearn.metrics import (precision_recall_curve,
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import pickle
-
+from category_encoders import TargetEncoder
 
 
 def _max_width_():
@@ -280,18 +282,27 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     num_cols = data._get_numeric_data().columns
     cat_cols = list(set(all_cols) - set(num_cols))
     for col in cat_cols:
+        encoder = TargetEncoder()
+        X_train[f'{col}_encoded'] = encoder.fit_transform(X_train[col], X_train[target_feature])
+        X_train.drop(col, axis=1, inplace=True)
 
-        X_train
+        X_test[f'{col}_encoded'] = encoder.transform(X_test[col])
+        X_test.drop(col, axis=1, inplace=True)
 
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dtest = xgb.DMatrix(X_test)
-    num_round = 100
+    # num_round = 100
+    num_round = min(int(math.sqrt(data.shape[1])), 8)
+    depth = min(int(math.sqrt(data.shape[0])), 300)
+
     if modelType == 'Classification (Default)':
-        param = {'max_depth': 3, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 2, 'nthread': 48,
-                 'colsample_bytree': 0.8, 'subsample': 0.8}
+        param = {'max_depth': depth, 'eta': 1, 'objective': 'binary:logistic', 'n_jobs': -1, 'verbosity': 0,
+                 'nthread': 48,
+                 'colsample_bytree': 1, 'subsample': 1}
     else:
-        param = {'max_depth': 3, 'eta': 1, 'objective': 'reg:squarederror', 'n_jobs': -1, 'verbosity': 2, 'nthread': 48,
-                 'colsample_bytree': 0.8, 'subsample': 0.8}
+        param = {'max_depth': depth, 'eta': 1, 'objective': 'reg:squarederror', 'n_jobs': -1, 'verbosity': 0,
+                 'nthread': 48,
+                 'colsample_bytree': 1, 'subsample': 1}
     bst = xgb.train(param, dtrain, num_round)
     pereds = bst.predict(dtest)
     st.success('''Training complete!''')
