@@ -25,6 +25,7 @@ from sklearn.metrics import mean_squared_error
 import pickle
 
 
+
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
     st.markdown(
@@ -274,6 +275,13 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
         X_test = test_set.drop(label, axis=1).reset_index(drop=True)
         y_test = test_set[label].reset_index(drop=True)
+
+    all_cols = data.columns
+    num_cols = data._get_numeric_data().columns
+    cat_cols = list(set(all_cols) - set(num_cols))
+    for col in cat_cols:
+
+        X_train
 
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dtest = xgb.DMatrix(X_test)

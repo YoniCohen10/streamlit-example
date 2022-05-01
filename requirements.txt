@@ -9,3 +9,4 @@ xgboost
 stqdm
 matplotlib
 pdfkit
+category-encoders
