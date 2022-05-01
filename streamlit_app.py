@@ -28,6 +28,7 @@ import pickle
 from category_encoders import TargetEncoder
 from io import BytesIO
 
+
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
     st.markdown(
@@ -259,6 +260,10 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
     data = data.drop(col_to_drop, axis=1)
     label = target_feature
+
+    if (modelType == 'Classification (Default)') and (target_feature in data._get_numeric_data().columns):
+        unique_values_of_target = data[target_feature].unique()
+        data[target_feature].apply(lambda x: 1 if x == unique_values_of_target[0] else 0)
 
     X_train, X_test, y_train, y_test = '', '', '', ''
 
