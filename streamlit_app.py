@@ -375,6 +375,10 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         f1_score = fbeta_score(y_test, pereds_label, average='binary', beta=1)
         col3.write(str(f1_score))
 
+        col4.header('F2-Score')
+        f2_score = fbeta_score(y_test, pereds_label, average='binary', beta=2)
+        col4.write(str(f2_score))
+
         right, left = st.columns((1, 1))
         right.header("Precision recall curve")
         disp.plot()
