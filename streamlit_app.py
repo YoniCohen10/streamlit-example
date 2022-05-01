@@ -291,6 +291,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
     X_train.dropna(subset=[target_feature], inplace=True)
     X_train.reset_index(inplace=True, drop=True)
+    y_train = X_train[target_feature]
 
     X_test[target_feature] = y_test
 
