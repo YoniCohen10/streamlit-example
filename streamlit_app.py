@@ -263,7 +263,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
     if (modelType == 'Classification (Default)') and (target_feature in data._get_numeric_data().columns):
         unique_values_of_target = data[target_feature].unique()
-        data[target_feature].apply(lambda x: 1 if x == unique_values_of_target[0] else 0)
+        data[target_feature] = data[target_feature].apply(lambda x: 1 if x == unique_values_of_target[0] else 0)
 
     X_train, X_test, y_train, y_test = '', '', '', ''
 
