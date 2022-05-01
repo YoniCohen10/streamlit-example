@@ -254,15 +254,20 @@ if ModelType == 'Classification (Default)':
 
 
 def train_model(data, modelType, target_feature, random_or_date, split_prop, date_feature, split_date, col_to_drop):
-    if date_feature in col_to_drop: col_to_drop.remove(date_feature)
+    if date_feature in col_to_drop:
+        col_to_drop.remove(date_feature)
+
     data = data.drop(col_to_drop, axis=1)
     label = target_feature
+
     X_train, X_test, y_train, y_test = '', '', '', ''
+
     if random_or_date == 'Random':
         if date_feature != '':
             data = data.drop(date_feature, axis=1)
         X_train, X_test, y_train, y_test = train_test_split(
             data.drop(label, axis=1), data[label], test_size=100 - split_prop, random_state=42)
+
     if random_or_date == 'By date':
         data[date_feature] = data[date_feature].apply(lambda x: parser.parse(x))
 
@@ -340,8 +345,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
                                                                                col_to_drop)
         train_over = True
     except Exception as e:
-        st.error(
-            f'{e}')
+        st.error(print(e))
         st.error(
             '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
 
