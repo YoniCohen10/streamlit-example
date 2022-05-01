@@ -303,6 +303,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         param = {'max_depth': depth, 'eta': 1, 'objective': 'reg:squarederror', 'n_jobs': -1, 'verbosity': 0,
                  'nthread': 48,
                  'colsample_bytree': 1, 'subsample': 1}
+
     bst = xgb.train(param, dtrain, num_round)
     pereds = bst.predict(dtest)
     st.success('''Training complete!''')
@@ -332,7 +333,9 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
                                                                                split_prop, date_feature, split_date,
                                                                                col_to_drop)
         train_over = True
-    except:
+    except Exception as e:
+        st.error(
+            f'{e}')
         st.error(
             '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
 
