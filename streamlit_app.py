@@ -283,8 +283,8 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         X_test = test_set.drop(label, axis=1).reset_index(drop=True)
         y_test = test_set[label].reset_index(drop=True)
 
-    all_cols = data.columns
-    num_cols = data._get_numeric_data().columns
+    all_cols = X_train.columns
+    num_cols = X_train._get_numeric_data().columns
     cat_cols = list(set(all_cols) - set(num_cols))
 
     X_train[target_feature] = y_train
