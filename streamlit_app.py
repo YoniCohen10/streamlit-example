@@ -351,6 +351,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
 
     images_to_save = []
     if ModelType == 'Classification (Default)' and train_over:
+        st.balloons()
         pereds_label = np.where(pereds > class_threshold, 1, 0)
         cf_matrix = confusion_matrix(y_test, pereds_label)
 
