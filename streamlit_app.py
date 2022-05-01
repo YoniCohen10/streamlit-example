@@ -288,7 +288,11 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     cat_cols = list(set(all_cols) - set(num_cols))
 
     X_train[target_feature] = y_train
+
+    X_train.dropna(subset=[target_feature], inplace=True).reset_ondex(inplace=True, drop=True)
+
     X_test[target_feature] = y_test
+
     if modelType == 'Classification (Default)':
         for col in cat_cols:
             encoder = TargetEncoder()
@@ -306,7 +310,7 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
     dtrain = xgb.DMatrix(X_train, label=y_train)
     dtest = xgb.DMatrix(X_test)
-    # num_round = 100
+
     num_round = min(int(math.sqrt(data.shape[1])), 8)
     depth = min(int(math.sqrt(data.shape[0])), 300)
 
@@ -351,7 +355,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
     except Exception as e:
         st.error(str(e))
         st.error(
-            '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
+            '❌ It looks like some of the columns you have provided for training are not sutiable for training. please remove them befre training')
 
     images_to_save = []
     if ModelType == 'Classification (Default)' and train_over:
