@@ -422,7 +422,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         fig = plt.gcf()
         fig.set_size_inches(7, 3.5)
         images_to_save.append(fig)
-        st.pyplot(fig)
+        st.image(fig)
     if train_over:
         X_test['predictions'] = pereds
         X_test['label'] = y_test
