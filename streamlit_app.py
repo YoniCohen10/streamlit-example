@@ -383,7 +383,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         st.header('Graphs')
         right, left = st.columns((1, 1))
 
-        right.header("Precision recall curve")
+        right.subheader("Precision recall curve")
         disp.plot()
         fig = plt.gcf()
         fig.set_size_inches(7, 3.5)
@@ -391,7 +391,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         images_to_save.append(fig)
         plt.clf()
 
-        left.header("Predictions histogram")
+        left.subheader("Predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
         fig1.set_size_inches(7, 3.5)
