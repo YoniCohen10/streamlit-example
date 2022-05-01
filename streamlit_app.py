@@ -289,13 +289,17 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
     X_train[target_feature] = y_train
     X_test[target_feature] = y_test
-    for col in cat_cols:
-        encoder = TargetEncoder()
-        X_train[f'{col}_encoded'] = encoder.fit_transform(X_train[col], X_train[target_feature])
-        X_train.drop(col, axis=1, inplace=True)
+    if modelType == 'Classification (Default)':
+        for col in cat_cols:
+            encoder = TargetEncoder()
+            X_train[f'{col}_encoded'] = encoder.fit_transform(X_train[col], X_train[target_feature])
+            X_train.drop(col, axis=1, inplace=True)
 
-        X_test[f'{col}_encoded'] = encoder.transform(X_test[col])
-        X_test.drop(col, axis=1, inplace=True)
+            X_test[f'{col}_encoded'] = encoder.transform(X_test[col])
+            X_test.drop(col, axis=1, inplace=True)
+    else:
+        X_train.drop(cat_cols, axis=1, inplace=True)
+        X_test.drop(cat_cols, axis=1, inplace=True)
 
     X_train.drop(target_feature, axis=1, inplace=True)
     X_test.drop(target_feature, axis=1, inplace=True)
