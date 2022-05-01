@@ -399,17 +399,28 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         disp.plot()
         fig = plt.gcf()
         fig.set_size_inches(7, 3.5)
-        right.pyplot(fig)
         images_to_save.append(fig)
-        plt.clf()
+
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        right.image(buf)
+
+        # right.pyplot(fig)
+        # plt.clf()
 
         left.subheader("Predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
         fig1.set_size_inches(7, 3.5)
+
         images_to_save.append(fig1)
-        plt.plot()
-        left.pyplot(fig1)
+
+        buf = BytesIO()
+        fig1.savefig(buf, format="png")
+        left.image(buf)
+
+        # plt.plot()
+        # left.pyplot(fig1)
 
     elif ModelType == 'Regression' and train_over:
         st.subheader("MSE")
