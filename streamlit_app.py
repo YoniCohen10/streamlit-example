@@ -400,10 +400,10 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         left.pyplot(fig1)
 
     elif ModelType == 'Regression' and train_over:
-        st.header("MSE")
+        st.subheader("MSE")
         st.write(str(mean_squared_error(y_test, pereds)))
 
-        st.header("Predictions histogram")
+        st.subheader("Predictions histogram")
         plt.hist(pereds)
         plt.plot()
 
@@ -418,7 +418,10 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         model_to_save = bst
         model_parameters = param
         l = []
+
+        st.header('Download experiment artifacts')
         c1, c2, c3 = st.columns((1, 1, 1))
+
         with c1:
             download_button(X_train,
                             "train_data.csv",
