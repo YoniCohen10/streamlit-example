@@ -345,7 +345,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
                                                                                col_to_drop)
         train_over = True
     except Exception as e:
-        st.error(print(e))
+        st.error(e)
         st.error(
             '❌ It looks like some of the columns you have provided for traning are not sutiable for training. please remove them befre training')
 
