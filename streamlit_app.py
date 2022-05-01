@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_squared_error
 import pickle
 from category_encoders import TargetEncoder
-
+from io import BytesIO
 
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
@@ -421,8 +421,13 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
 
         fig = plt.gcf()
         fig.set_size_inches(7, 3.5)
-        images_to_save.append(fig)
-        st.image(fig)
+
+        buf = BytesIO()
+        fig.savefig(buf, format="png")
+        st.image(buf)
+
+        # images_to_save.append(fig)
+        # st.pyplot(fig)
     if train_over:
         X_test['predictions'] = pereds
         X_test['label'] = y_test
