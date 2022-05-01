@@ -288,16 +288,14 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
     cat_cols = list(set(all_cols) - set(num_cols))
 
     X_train[target_feature] = y_train
-
     X_train.dropna(subset=[target_feature], inplace=True)
     X_train.reset_index(inplace=True, drop=True)
     y_train = X_train[target_feature]
 
+    X_test[target_feature] = y_test
     X_test.dropna(subset=[target_feature], inplace=True)
     X_test.reset_index(inplace=True, drop=True)
     y_test = X_test[target_feature]
-
-    X_test[target_feature] = y_test
 
     if modelType == 'Classification (Default)':
         for col in cat_cols:
