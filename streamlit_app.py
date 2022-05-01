@@ -372,7 +372,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         col2.write(str(recall))
 
         col3.header('F1-Score')
-        f1_score = fbeta_score(y_test, pereds_label, average=None, beta=1)
+        f1_score = fbeta_score(y_test, pereds_label, average='binary', beta=1)
         col3.write(str(f1_score))
 
         right, left = st.columns((1, 1))
