@@ -362,20 +362,20 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         precision_l, recall_l, _ = precision_recall_curve(y_test, pereds)
 
         disp = PrecisionRecallDisplay(precision=precision_l, recall=recall_l)
-
+        st.header('Cumulative KPIs')
         col1, col2, col3, col4 = st.columns((1, 1, 1, 1))
 
-        col1.header("Precision")
+        col1.subheader("Precision")
         col1.write(str(precision))
 
-        col2.header("Recall")
+        col2.subheader("Recall")
         col2.write(str(recall))
 
-        col3.header('F1-Score')
+        col3.subheader('F1-Score')
         f1_score = fbeta_score(y_test, pereds_label, average='binary', beta=1)
         col3.write(str(f1_score))
 
-        col4.header('F2-Score')
+        col4.subheader('F2-Score')
         f2_score = fbeta_score(y_test, pereds_label, average='binary', beta=2)
         col4.write(str(f2_score))
 
