@@ -398,7 +398,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         right.subheader("Precision recall curve")
         disp.plot()
         fig = plt.gcf()
-        fig.set_size_inches(7, 4)
+        fig.set_size_inches(7, 5)
         images_to_save.append(fig)
 
         buf = BytesIO()
@@ -411,9 +411,9 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         left.subheader("Predictions histogram")
         plt.hist(pereds)
         fig1 = plt.gcf()
-        fig1.set_size_inches(7, 4)
-        plt.xlabel('Probs', fontsize=18)
-        plt.ylabel('Amount', fontsize=16)
+        fig1.set_size_inches(7, 5)
+        plt.xlabel('Probs', fontsize=9)
+        plt.ylabel('Amount', fontsize=9)
 
         images_to_save.append(fig1)
 
@@ -433,7 +433,7 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
         plt.plot()
 
         fig = plt.gcf()
-        fig.set_size_inches(7, 3.5)
+        fig.set_size_inches(7, 5)
 
         buf = BytesIO()
         fig.savefig(buf, format="png")
