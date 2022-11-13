@@ -28,6 +28,9 @@ import pickle
 from category_encoders import TargetEncoder
 from io import BytesIO
 
+pd.options.plotting.backend = "plotly"
+
+
 
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
@@ -82,7 +85,6 @@ col4.title("DSandbox")
 # 
 #     st.text("")
 
-# new push
 c29, c30, c31 = st.columns([1, 6, 1])
 
 with c30:
