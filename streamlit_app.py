@@ -488,4 +488,5 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
 
 else:
     # st.balloons()
-    st.error("Press Train model and start training!")
+    if legit:
+        st.error("Press Train model and start training!")
