@@ -10,3 +10,4 @@ stqdm
 matplotlib
 pdfkit
 category-encoders
+plotly
