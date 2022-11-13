@@ -82,7 +82,7 @@ col4.title("DSandbox")
 # 
 #     st.text("")
 
-#new push
+# new push
 c29, c30, c31 = st.columns([1, 6, 1])
 
 with c30:
@@ -331,11 +331,15 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
         param = {'max_depth': depth, 'eta': 1, 'objective': 'reg:squarederror', 'n_jobs': -1, 'verbosity': 0,
                  'nthread': 48,
                  'colsample_bytree': 1, 'subsample': 1}
-
-    bst = xgb.train(param, dtrain, num_round)
-    pereds = bst.predict(dtest)
-    st.success('''Training complete!''')
-    return bst, pereds, X_train, X_test, y_train, y_test, param
+    try:
+        bst = xgb.train(param, dtrain, num_round)
+        pereds = bst.predict(dtest)
+        st.success('''Training complete!''')
+        return bst, pereds, X_train, X_test, y_train, y_test, param
+    except Exception as e:
+        st.error(str(e))
+        st.error(
+            '❌ It looks like some of the columns you have provided for training are not sutiable for training. please remove them befre training')
 
 
 if shows.drop(col_to_drop, axis=1).shape[1] < 2:
