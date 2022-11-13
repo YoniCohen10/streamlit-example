@@ -201,8 +201,8 @@ if ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'in
     )
     legit = False
 else:
-    legit = True
     if ModelType == 'Regression':
+        legit = True
         st.success(
             f"""
                     ✅  Your label column has continuous values.
@@ -344,7 +344,7 @@ else:
     legit = True
 
 if legit and col_to_drop.count(target_feature) < 1:
-    st.success('✅ Looks like all the training defenitions are gread! press Train model and start training!')
+    st.success('✅ Looks like all the training definitions are great! press Train model and start training!')
 
 if not legit or not (col_to_drop.count(target_feature) < 1):
     st.error(
