@@ -352,7 +352,7 @@ if not legit or not (col_to_drop.count(target_feature) < 1):
 
 train_over = False
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
-if col4.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
+if col4.button('Train model!') and legit and col_to_drop.count(target_feature) < 1 and False:
     try:
         # st.success(f""" 🏃  Everything looks great! Start Training!""")
         with st.spinner('Wait for it...'):
