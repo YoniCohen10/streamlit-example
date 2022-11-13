@@ -10,4 +10,4 @@ stqdm
 matplotlib
 pdfkit
 category-encoders
-plotly
+plotly==5.11.0
