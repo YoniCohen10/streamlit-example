@@ -181,8 +181,8 @@ target_feature = st.radio(
     shows.columns.tolist(),
     help="You need to choose the column you want the model to predict its value",
 )
-
-legit = True
+if 'legit' not in st.session_state:
+    st.session_state.legit = True
 
 threshold = 2
 label_size = len(shows[target_feature].value_counts())
@@ -195,10 +195,10 @@ if ModelType == 'Classification (Default)' and label_size > threshold:
             currently supports only binary classification tasks.
             """
     )
-    legit = False
+    st.session_state.legit = False
 
 if ModelType == 'Classification (Default)' and label_size == 2:
-    legit = True
+    st.session_state.legit = True
     st.success(
         f"""
             ✅  Your label column has exactly 2 values.
@@ -213,10 +213,10 @@ if ModelType == 'Regression' and targrt_col_type not in ['int64', 'float64', 'in
                 regression tasks tries to predict continuous value i.e. - ints or floats 
                 """
     )
-    legit = False
+    st.session_state.legit = False
 else:
     if ModelType == 'Regression':
-        legit = True
+        st.session_state.legit = True
         st.success(
             f"""
                     ✅  Your label column has continuous values.
@@ -245,11 +245,11 @@ else:
     )
     cols = st.columns(1)
     try:
-        legit = True
+        st.session_state.legit = True
         split_date = cols[0].slider("Date split:", parser.parse(min(shows[date_feature]))
                                     , parser.parse(max(shows[date_feature])))
     except:
-        legit = False
+        st.session_state.legit = False
         st.error(
             f"""
                     ❌  The date format is unknown!
@@ -353,20 +353,20 @@ def train_model(data, modelType, target_feature, random_or_date, split_prop, dat
 
 
 if shows.drop(col_to_drop, axis=1).shape[1] < 2:
-    legit = False
+    st.session_state.legit = False
 # else:
 #     legit = True
 
-if legit and col_to_drop.count(target_feature) < 1:
+if st.session_state.legit and col_to_drop.count(target_feature) < 1:
     st.success('✅ Looks like all the training definitions are great! press Train model and start training!')
 
-if not legit or not (col_to_drop.count(target_feature) < 1):
+if not st.session_state.legit or not (col_to_drop.count(target_feature) < 1):
     st.error(
         '❌ Looks like something with the training definition is wrong, please double check you training definitions')
 
 train_over = False
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
-if col4.button('Train model!') and legit and col_to_drop.count(target_feature) < 1:
+if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(target_feature) < 1:
     try:
         # st.success(f""" 🏃  Everything looks great! Start Training!""")
         with st.spinner('Wait for it...'):
@@ -502,5 +502,5 @@ if col4.button('Train model!') and legit and col_to_drop.count(target_feature) <
 
 else:
     # st.balloons()
-    if legit:
+    if st.session_state.legit:
         st.error("Press Train model and start training!")
