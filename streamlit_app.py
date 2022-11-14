@@ -30,6 +30,19 @@ from io import BytesIO
 
 pd.options.plotting.backend = "plotly"
 
+hide_menu = """
+<style>
+footer:before{
+    content: 'Powered by NLP Store';
+    display:block;
+    position:relative;
+    color:darkgrey;
+    font-size:30px;
+}
+</style>
+"""
+st.markdown(hide_menu, unsafe_allow_html=True)
+
 
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
