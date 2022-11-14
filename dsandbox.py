@@ -31,7 +31,6 @@ from io import BytesIO
 pd.options.plotting.backend = "plotly"
 
 
-
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
     st.markdown(
