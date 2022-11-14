@@ -51,7 +51,7 @@ st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide",)
 hide_menu = """
 <style>
 footer:before{
-    content: 'Powered by NLP Store';
+    content: 'Powered by OZ';
     display:block;
     position:relative;
     color:darkgrey;
