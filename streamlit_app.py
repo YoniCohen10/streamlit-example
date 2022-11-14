@@ -30,20 +30,6 @@ from io import BytesIO
 
 pd.options.plotting.backend = "plotly"
 
-hide_menu = """
-<style>
-footer:before{
-    content: 'Powered by NLP Store';
-    display:block;
-    position:relative;
-    color:darkgrey;
-    font-size:30px;
-}
-</style>
-"""
-st.markdown(hide_menu, unsafe_allow_html=True)
-
-
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
     st.markdown(
@@ -60,7 +46,21 @@ def _max_width_():
 
 # st.set_page_config(layout="wide")
 
-st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide")
+st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide",)
+
+hide_menu = """
+<style>
+footer:before{
+    content: 'Powered by NLP Store';
+    display:block;
+    position:relative;
+    color:darkgrey;
+    font-size:30px;
+}
+</style>
+"""
+st.markdown(hide_menu, unsafe_allow_html=True)
+
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 
