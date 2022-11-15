@@ -445,6 +445,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         # left.pyplot(fig1)
 
     elif ModelType == 'Regression' and train_over:
+        st.balloons()
         st.subheader("MSE")
         st.write(str(mean_squared_error(y_test, pereds)))
 
