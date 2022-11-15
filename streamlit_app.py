@@ -27,6 +27,7 @@ from sklearn.metrics import mean_squared_error
 import pickle
 from category_encoders import TargetEncoder
 from io import BytesIO
+import plotly.figure_factory as ff
 
 pd.options.plotting.backend = "plotly"
 
@@ -461,6 +462,11 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         buf = BytesIO()
         fig.savefig(buf, format="png")
         st.image(buf)
+
+        fig = ff.create_table(pereds)
+
+        # Plot!
+        st.plotly_chart(fig, use_container_width=True)
 
         # images_to_save.append(fig)
         # st.pyplot(fig)
