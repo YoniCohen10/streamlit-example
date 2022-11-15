@@ -515,7 +515,7 @@ if col4.button('Train model!') and st.session_state.legit_model and st.session_s
     #                     "⬇️ Images")
 
 
-else:
-    # st.balloons()
-    if st.session_state.legit_model:
-        st.success("Press Train model and start training!")
+# else:
+#     # st.balloons()
+#     if st.session_state.legit_model:
+#         st.success("Press Train model and start training!")
