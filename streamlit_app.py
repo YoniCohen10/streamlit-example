@@ -367,7 +367,7 @@ if st.session_state.legit_model and st.session_state.legit_date and col_to_drop.
 
 if not st.session_state.legit_model or not (col_to_drop.count(target_feature) < 1) or not st.session_state.legit_date:
     st.error(
-        '❌ Looks like something with the training definition is wrong, please double check you training definitions')
+        '❌ Looks like something with the training definition is wrong, please double check your training definitions')
 
 train_over = False
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
