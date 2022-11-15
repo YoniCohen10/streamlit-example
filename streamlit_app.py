@@ -414,11 +414,11 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         f2_score = fbeta_score(y_test, pereds_label, average='binary', beta=2)
         col4.write(str(f2_score))
 
-        st.header('Graphs')
-        c = alt.Chart(df).mark_circle().encode(
-            x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
-
-        st.altair_chart(c, use_container_width=True)
+        # st.header('Graphs')
+        # c = alt.Chart(df).mark_circle().encode(
+        #     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
+        #
+        # st.altair_chart(c, use_container_width=True)
         right, left = st.columns((1, 1))
 
         right.subheader("Precision recall curve")
