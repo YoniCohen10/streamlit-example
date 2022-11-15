@@ -467,7 +467,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
                                  histnorm='')
         fig.update_layout(xaxis=dict(title=f'Count'), yaxis=dict(title=f'{target_feature}'),
                           title=f'{target_feature} prediction distribution',
-                          height=800)
+                          height=800, title_x=0.5)
 
         # Plot!
         st.plotly_chart(fig, use_container_width=True)
