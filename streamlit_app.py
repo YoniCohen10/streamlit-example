@@ -463,18 +463,18 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         fig.savefig(buf, format="png")
         st.image(buf)
 
-        middle = int((max(pereds) - min(pereds)) / 10)
+        # middle = int((max(pereds) - min(pereds)) / 10)
         fig = ff.create_distplot([pereds], ['Regressor predictions'], show_curve=False, colors=['red'],
                                  histnorm='probability',
-                                 bin_size=list(range(int(min(pereds)), int(max(pereds)), middle)))
+                                 bin_size=list(np.linspace((max(pereds), min(pereds)), 10)))
 
         # Plot!
         st.plotly_chart(fig, use_container_width=True)
 
         # images_to_save.append(fig)
         # st.pyplot(fig)
-    if train_over:
-        X_test['predictions'] = pereds
+        if train_over:
+            X_test['predictions'] = pereds
         X_test['label'] = y_test
         X_train['label'] = y_train
         model_to_save = bst
@@ -497,20 +497,19 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
                             "model.pkl",
                             "⬇️ Trained model")
 
-    # from matplotlib.backends.backend_pdf import PdfPages
-    #
-    # pp = PdfPages('foo.pdf')
-    # for im in images_to_save:
-    #     pp.savefig(im)
-    #
-    # pp.close()
-    # with c4:
-    #     download_button(pp,
-    #                     "images.pdf",
-    #                     "⬇️ Images")
+        # from matplotlib.backends.backend_pdf import PdfPages
+        #
+        # pp = PdfPages('foo.pdf')
+        # for im in images_to_save:
+        #     pp.savefig(im)
+        #
+        # pp.close()
+        # with c4:
+        #     download_button(pp,
+        #                     "images.pdf",
+        #                     "⬇️ Images")
 
-
-else:
-    # st.balloons()
-    if st.session_state.legit:
-        st.success("Press Train model and start training!")
+        else:
+        # st.balloons()
+        if st.session_state.legit:
+            st.success("Press Train model and start training!")
