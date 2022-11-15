@@ -463,7 +463,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         fig.savefig(buf, format="png")
         st.image(buf)
 
-        fig = ff.create_distplot([pereds
+        fig = ff.create_distplot([pereds], ['predictions'])
 
         # Plot!
         st.plotly_chart(fig, use_container_width=True)
