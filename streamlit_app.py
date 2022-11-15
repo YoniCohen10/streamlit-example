@@ -463,8 +463,9 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         fig.savefig(buf, format="png")
         st.image(buf)
 
-        middle = min(pereds) + (max(pereds) - min(pereds))
-        fig = ff.create_distplot([pereds], ['Regressor predictions'], show_curve=False, colors=['red'])
+        middle = (max(pereds) - min(pereds)) / 10
+        fig = ff.create_distplot([pereds], ['Regressor predictions'], show_curve=False, colors=['red'],
+                                 bin_size=list(range(min(pereds), max(pereds), middle)))
 
         # Plot!
         st.plotly_chart(fig, use_container_width=True)
