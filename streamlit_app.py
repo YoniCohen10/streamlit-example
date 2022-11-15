@@ -362,7 +362,7 @@ if shows.drop(col_to_drop, axis=1).shape[1] < 2:
 # else:
 #     legit = True
 
-if st.session_state.legit_model and col_to_drop.count(target_feature) < 1:
+if st.session_state.legit_model and st.session_state.legit_date and col_to_drop.count(target_feature) < 1:
     st.success('✅ Looks like all the training definitions are great! press Train model and start training!')
 
 if not st.session_state.legit_model or not (col_to_drop.count(target_feature) < 1):
