@@ -30,6 +30,7 @@ from io import BytesIO
 
 pd.options.plotting.backend = "plotly"
 
+
 def _max_width_():
     max_width_str = f"max-width: 1800px;"
     st.markdown(
@@ -46,7 +47,7 @@ def _max_width_():
 
 # st.set_page_config(layout="wide")
 
-st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide",)
+st.set_page_config(page_icon="🧠", page_title="DSandbox", layout="wide", )
 
 hide_menu = """
 <style>
@@ -60,7 +61,6 @@ footer:before{
 </style>
 """
 st.markdown(hide_menu, unsafe_allow_html=True)
-
 
 # st.image("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/285/balloon_1f388.png", width=100)
 
@@ -503,4 +503,4 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
 else:
     # st.balloons()
     if st.session_state.legit:
-        st.error("Press Train model and start training!")
+        st.success("Press Train model and start training!")
