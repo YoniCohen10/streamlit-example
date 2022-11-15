@@ -464,7 +464,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         st.image(buf)
 
         middle = int((max(pereds) - min(pereds)) / 10)
-        fig = ff.create_distplot([pereds], ['Regressor predictions'], show_curve=False, colors=['red'],
+        fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['red'],
                                  histnorm='probability',
                                  bin_size=list(np.linspace(max(pereds), min(pereds), 10)))
 
