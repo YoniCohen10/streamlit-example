@@ -466,7 +466,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         middle = int((max(pereds) - min(pereds)) / 10)
         fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['red'],
                                  histnorm='')
-        fig.update_layout(xaxis=dict(title='X'), yaxis=dict(title='X'),
+        fig.update_layout(xaxis=dict(title=f'Count'), yaxis=dict(title=f'{target_feature}'),
                           title=f'{target_feature} prediction distribution',
                           height=800)
 
