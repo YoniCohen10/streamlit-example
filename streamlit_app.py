@@ -450,20 +450,19 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         st.subheader("MSE")
         st.write(str(mean_squared_error(y_test, pereds)))
 
-        st.subheader("Predictions histogram")
-        plt.hist(pereds)
-        plt.plot()
-        plt.xlabel(target_feature, fontsize=9)
-        plt.ylabel('Amount', fontsize=9)
+        # st.subheader("Predictions histogram")
+        # plt.hist(pereds)
+        # plt.plot()
+        # plt.xlabel(target_feature, fontsize=9)
+        # plt.ylabel('Amount', fontsize=9)
+        #
+        # fig = plt.gcf()
+        # fig.set_size_inches(7, 5)
+        #
+        # buf = BytesIO()
+        # fig.savefig(buf, format="png")
+        # st.image(buf)
 
-        fig = plt.gcf()
-        fig.set_size_inches(7, 5)
-
-        buf = BytesIO()
-        fig.savefig(buf, format="png")
-        st.image(buf)
-
-        middle = int((max(pereds) - min(pereds)) / 10)
         fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['red'],
                                  histnorm='')
         fig.update_layout(xaxis=dict(title=f'Count'), yaxis=dict(title=f'{target_feature}'),
