@@ -28,7 +28,6 @@ import pickle
 from category_encoders import TargetEncoder
 from io import BytesIO
 import plotly.figure_factory as ff
-import altair as alt
 
 pd.options.plotting.backend = "plotly"
 
@@ -414,11 +413,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         f2_score = fbeta_score(y_test, pereds_label, average='binary', beta=2)
         col4.write(str(f2_score))
 
-        # st.header('Graphs')
-        # c = alt.Chart(df).mark_circle().encode(
-        #     x='a', y='b', size='c', color='c', tooltip=['a', 'b', 'c'])
-        #
-        # st.altair_chart(c, use_container_width=True)
+        st.header('Graphs')
         right, left = st.columns((1, 1))
 
         right.subheader("Precision recall curve")
@@ -435,26 +430,20 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         plt.clf()
 
         left.subheader("Predictions histogram")
-        # plt.hist(pereds)
-        # fig1 = plt.gcf()
-        # fig1.set_size_inches(7, 5)
-        # plt.xlabel('Probs', fontsize=9)
-        # plt.ylabel('Amount', fontsize=9)
-        #
-        # images_to_save.append(fig1)
-        #
-        # buf = BytesIO()
-        # fig1.savefig(buf, format="png")
-        # left.image(buf)
+        plt.hist(pereds)
+        fig1 = plt.gcf()
+        fig1.set_size_inches(7, 5)
+        plt.xlabel('Probs', fontsize=9)
+        plt.ylabel('Amount', fontsize=9)
 
-        fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['red'],
-                                 histnorm='')
-        fig.update_layout(xaxis=dict(title=f'Count'), yaxis=dict(title=f'{target_feature}'),
-                          title=f'{target_feature} prediction distribution',
-                          height=800, title_x=0.5)
+        images_to_save.append(fig1)
 
-        # Plot!
-        st.plotly_chart(fig, use_container_width=True)
+        buf = BytesIO()
+        fig1.savefig(buf, format="png")
+        left.image(buf)
+
+        # plt.plot()
+        # left.pyplot(fig1)
 
     elif ModelType == 'Regression' and train_over:
         st.balloons()
@@ -474,7 +463,7 @@ if col4.button('Train model!') and st.session_state.legit and col_to_drop.count(
         # fig.savefig(buf, format="png")
         # st.image(buf)
 
-        fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['red'],
+        fig = ff.create_distplot([np.transpose(pereds)], ['Regressor predictions'], show_curve=False, colors=['blue'],
                                  histnorm='')
         fig.update_layout(xaxis=dict(title=f'Count'), yaxis=dict(title=f'{target_feature}'),
                           title=f'{target_feature} prediction distribution',
