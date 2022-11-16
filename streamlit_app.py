@@ -28,6 +28,8 @@ import pickle
 from category_encoders import TargetEncoder
 from io import BytesIO
 import plotly.figure_factory as ff
+from st_aggrid import GridUpdateMode, DataReturnMode
+
 
 pd.options.plotting.backend = "plotly"
 
@@ -120,16 +122,15 @@ with c30:
             file_container.write(shows)
         except:
             st.error('❌ DSandbox supports only CSV files')
+            st.stop()
     else:
         st.info(
             f"""
                 👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
                 """
         )
-
         st.stop()
 
-from st_aggrid import GridUpdateMode, DataReturnMode
 
 gb = GridOptionsBuilder.from_dataframe(shows)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
