@@ -55,7 +55,6 @@ if 'legit_model' not in st.session_state:
 if 'legit_date' not in st.session_state:
     st.session_state.legit_date = True
 
-
 hide_menu = """
 <style>
 footer:before{
@@ -115,11 +114,12 @@ with c30:
 
     if uploaded_file is not None:
         file_container = st.expander("Check your uploaded .csv")
-        st.error(type(uploaded_file))
-        shows = pd.read_csv(uploaded_file)
-        uploaded_file.seek(0)
-        file_container.write(shows)
-
+        try:
+            shows = pd.read_csv(uploaded_file)
+            uploaded_file.seek(0)
+            file_container.write(shows)
+        except:
+            st.error('❌ DSandbox supports only CSV files')
     else:
         st.info(
             f"""
@@ -372,7 +372,8 @@ if not st.session_state.legit_model or not (col_to_drop.count(target_feature) < 
 
 train_over = False
 col1, col2, col3, col4, col5, col6, col7 = st.columns((1, 1, 1, 1, 1, 1, 1))
-if col4.button('Train model!') and st.session_state.legit_model and st.session_state.legit_date and col_to_drop.count(target_feature) < 1:
+if col4.button('Train model!') and st.session_state.legit_model and st.session_state.legit_date and col_to_drop.count(
+        target_feature) < 1:
     try:
         # st.success(f""" 🏃  Everything looks great! Start Training!""")
         with st.spinner('Wait for it...'):
@@ -514,7 +515,6 @@ if col4.button('Train model!') and st.session_state.legit_model and st.session_s
     #     download_button(pp,
     #                     "images.pdf",
     #                     "⬇️ Images")
-
 
 # else:
 #     # st.balloons()
