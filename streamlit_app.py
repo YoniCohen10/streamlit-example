@@ -115,6 +115,7 @@ with c30:
 
     if uploaded_file is not None:
         file_container = st.expander("Check your uploaded .csv")
+        st.error(type(uploaded_file))
         shows = pd.read_csv(uploaded_file)
         uploaded_file.seek(0)
         file_container.write(shows)
