@@ -104,13 +104,13 @@ col4.title("DSandbox")
 # 
 #     st.text("")
 
-c29, c30, c31, c32 = st.columns([1, 6, 1], [6])
 
 genre = st.radio(
     "Data source",
     ('Local CSV', 'S3'))
 
 if genre == 'Local CSV':
+    c29, c30, c31 = st.columns([1, 6, 1])
     with c30:
         uploaded_file = st.file_uploader(
             "",
@@ -135,6 +135,7 @@ if genre == 'Local CSV':
             )
             st.stop()
 if genre == 'S3':
+    c32 = st.columns(1)
     with c32:
         text_input = st.text_input(
             "Enter some text 👇",
