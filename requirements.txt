@@ -11,4 +11,4 @@ matplotlib
 pdfkit
 category-encoders
 plotly==5.11.0
-pip install boto3
+boto3
