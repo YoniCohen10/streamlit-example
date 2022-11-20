@@ -136,8 +136,8 @@ if genre == 'Local CSV':
             st.stop()
 
 if genre == 'S3':
-    c11 = st.columns(1)
-    with c11:
+    c29, c30, c31 = st.columns([1, 6, 1])
+    with c30:
         text_input = st.text_input(
             "Enter some text 👇",
             label_visibility="visible",
