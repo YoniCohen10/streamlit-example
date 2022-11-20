@@ -134,8 +134,8 @@ if genre == 'Local CSV':
                     """
             )
             st.stop()
-if genre == 'S3':
 
+if genre == 'S3':
     c11 = st.columns([1])
     with c11:
         text_input = st.text_input(
@@ -147,6 +147,7 @@ if genre == 'S3':
 
         if text_input:
             st.write("You entered: ", text_input)
+        st.stop()
 
 gb = GridOptionsBuilder.from_dataframe(shows)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
