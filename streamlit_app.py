@@ -135,7 +135,7 @@ if genre == 'Local CSV':
             )
             st.stop()
 if genre == 'S3':
-    c32 = st.columns(1)
+    c32 = st.columns([1])
 
     with c32:
         text_input = st.text_input(
