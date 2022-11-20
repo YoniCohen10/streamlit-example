@@ -131,6 +131,19 @@ with c30:
         )
         st.stop()
 
+col1 = st.columns(1)
+
+with col2:
+    text_input = st.text_input(
+        "Enter some text 👇",
+        label_visibility=st.session_state.visibility,
+        disabled=st.session_state.disabled,
+        placeholder=st.session_state.placeholder,
+    )
+
+    if text_input:
+        st.write("You entered: ", text_input)
+
 
 gb = GridOptionsBuilder.from_dataframe(shows)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
