@@ -30,7 +30,6 @@ from io import BytesIO
 import plotly.figure_factory as ff
 from st_aggrid import GridUpdateMode, DataReturnMode
 
-
 pd.options.plotting.backend = "plotly"
 
 
@@ -105,45 +104,47 @@ col4.title("DSandbox")
 # 
 #     st.text("")
 
-c29, c30, c31 = st.columns([1, 6, 1])
+c29, c30, c31, c32 = st.columns([1, 6, 1], [6])
 
-with c30:
-    uploaded_file = st.file_uploader(
-        "",
-        key="1",
-        help="To activate 'wide mode', go to the hamburger menu > Settings > turn on 'wide mode'",
-    )
+genre = st.radio(
+    "Data source",
+    ('Local CSV', 'S3'))
 
-    if uploaded_file is not None:
-        file_container = st.expander("Check your uploaded .csv")
-        try:
-            shows = pd.read_csv(uploaded_file)
-            uploaded_file.seek(0)
-            file_container.write(shows)
-        except:
-            st.error('❌ DSandbox supports only CSV files')
-            st.stop()
-    else:
-        st.info(
-            f"""
-                👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
-                """
+if genre == 'Local CSV':
+    with c30:
+        uploaded_file = st.file_uploader(
+            "",
+            key="1",
+            help="To activate 'wide mode', go to the hamburger menu > Settings > turn on 'wide mode'",
         )
-        st.stop()
 
-col1 = st.columns(1)
+        if uploaded_file is not None:
+            file_container = st.expander("Check your uploaded .csv")
+            try:
+                shows = pd.read_csv(uploaded_file)
+                uploaded_file.seek(0)
+                file_container.write(shows)
+            except:
+                st.error('❌ DSandbox supports only CSV files')
+                st.stop()
+        else:
+            st.info(
+                f"""
+                    👆 Upload a .csv file first. Sample to try: [biostats.csv](https://people.sc.fsu.edu/~jburkardt/data/csv/biostats.csv)
+                    """
+            )
+            st.stop()
+if genre == 'S3':
+    with c32:
+        text_input = st.text_input(
+            "Enter some text 👇",
+            label_visibility=st.session_state.visibility,
+            disabled=st.session_state.disabled,
+            placeholder=st.session_state.placeholder,
+        )
 
-with col2:
-    text_input = st.text_input(
-        "Enter some text 👇",
-        label_visibility=st.session_state.visibility,
-        disabled=st.session_state.disabled,
-        placeholder=st.session_state.placeholder,
-    )
-
-    if text_input:
-        st.write("You entered: ", text_input)
-
+        if text_input:
+            st.write("You entered: ", text_input)
 
 gb = GridOptionsBuilder.from_dataframe(shows)
 # enables pivoting on all columns, however i'd need to change ag grid to allow export of pivoted/grouped data, however it select/filters groups
