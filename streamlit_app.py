@@ -136,12 +136,13 @@ if genre == 'Local CSV':
             st.stop()
 if genre == 'S3':
     c32 = st.columns(1)
+
     with c32:
         text_input = st.text_input(
             "Enter some text 👇",
-            label_visibility=st.session_state.visibility,
-            disabled=st.session_state.disabled,
-            placeholder=st.session_state.placeholder,
+            label_visibility="visible",
+            disabled=False,
+            placeholder='Enter S3 file path',
         )
 
         if text_input:
