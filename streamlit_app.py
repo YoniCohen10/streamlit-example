@@ -1,5 +1,6 @@
 import math
 
+import boto3 as boto3
 import streamlit as st
 import pandas as pd
 
@@ -108,9 +109,9 @@ col4.title("DSandbox")
 genre = st.radio(
     "Data source",
     ('Local CSV', 'S3'))
+c29, c30, c31 = st.columns([1, 6, 1])
 
 if genre == 'Local CSV':
-    c29, c30, c31 = st.columns([1, 6, 1])
     with c30:
         uploaded_file = st.file_uploader(
             "",
@@ -136,7 +137,6 @@ if genre == 'Local CSV':
             st.stop()
 
 if genre == 'S3':
-    c29, c30, c31 = st.columns([1, 6, 1])
     with c30:
         text_input = st.text_input(
             "Enter some text 👇",
@@ -146,7 +146,12 @@ if genre == 'S3':
         )
 
         if text_input:
-            st.write("You entered: ", text_input)
+            bucket = "dsandbox-682017407852-prd"
+            file_name = "dev_test/titanic.csv"
+            s3 = boto3.client('s3')
+            obj = s3.get_object(Bucket=bucket, Key=file_name)
+            shows = pd.read_csv(obj['Body'])
+            file_container.write(shows)
         st.stop()
 
 gb = GridOptionsBuilder.from_dataframe(shows)
